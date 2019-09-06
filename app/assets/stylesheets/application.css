@@ -13,3 +13,55 @@
  *= require_tree .
  *= require_self
  */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+:root {
+	--header-font: 'Serif';
+}
+ /* All Elements */
+ul {
+	list-style: none;
+}
+
+/* Header/Nav */
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	border-bottom: 2pt solid black;
+	padding: 1em;
+}
+.site_title {
+	margin-right: 3em;
+}
+
+/* Main Sections */
+.main-container {
+	display: flex;
+}
+
+/* SideBar */
+aside {
+	width: 25%;
+	height: 100%;
+	border-right: 2pt solid black;
+}
+aside li {
+	width:100%;
+}
+ /* Main Display */
+main {
+	width: 70%;
+	padding: 1em;
+}
+main > h2{
+	width: 100%;
+	text-align: center;
+}
+.item-div > * {
+	display: inline;
+}
