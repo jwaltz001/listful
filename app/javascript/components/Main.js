@@ -1,5 +1,4 @@
 import React from 'react'
-
 import Item from './Item.js'
 
 class Main extends React.Component {
@@ -23,9 +22,14 @@ class Main extends React.Component {
 	render () {
 		return(
 			<main>
-				{this.state.listItemsArray.map((item) => {
-					<Item item={item}/>
-				})}
+				<h2><i className="material-icons md-36">add</i></h2>
+				{ this.state.listItemsArray.map((itemData) => (
+					<Item
+			  		key={itemData.id}
+			  		itemData={itemData}
+					/>
+		  		))
+				}
 			</main>
 		)
 	}

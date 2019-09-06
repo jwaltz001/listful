@@ -15,7 +15,7 @@ class SideBar extends React.Component {
 					<li>bucket</li>
 					<br/>
 					<br/>
-					<li><i className="material-icons">add</i> Create New </li>
+					<li> Create New </li>
 				</ul>
 			</aside>
 		)
