@@ -15,3 +15,4 @@ end
 
 # INSERT INTO users ( user_name, password, first_name, admin ) VALUES ('justin', 'justin', 'justin', true );
 # CREATE TABLE users ( id serial, user_name varchar(25) NOT NULL, password varchar(25) NOT NULL, first_name varchar(25), admin BOOLEAN );
+# INSERT INTO users ( user_name, password, first_name, admin ) VALUES ('costa', 'costa', 'costa', true );

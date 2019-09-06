@@ -7,4 +7,17 @@ Rails.application.routes.draw do
 
 	# TODO ROUTES
 	get '/todos', to: 'todos#index'
+  get '/todos/:id', to: 'todos#show'
+  post '/todos/id', to: 'todos#create'
+  delete '/todos/:id', to: 'todos#create'
+  get '/movies', to: 'movies#index'
+  get '/movies/:id', to: 'movies#show'
+  post '/movies/id', to: 'movies#create'
+  delete '/movies/:id', to: 'movies#create'
+
+  get '/music', to: 'music#index'
+  get '/music/:id', to: 'music#show'
+  post '/music/id', to: 'music#create'
+  delete '/music/:id', to: 'music#create'
+
 end
