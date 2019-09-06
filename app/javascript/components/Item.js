@@ -3,8 +3,9 @@ import React from 'react'
 class Item extends React.Component {
 	render () {
 		return (
-			<div>
-				<h3>{this.props.item.description}</h3>
+			<div className="item-div">
+				<input type="checkbox"/>
+				<h3>{this.props.itemData.description}</h3>
 			</div>
 		)
 	}

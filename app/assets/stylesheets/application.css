@@ -39,9 +39,29 @@ header {
 	margin-right: 3em;
 }
 
+/* Main Sections */
+.main-container {
+	display: flex;
+}
+
 /* SideBar */
 aside {
 	width: 25%;
 	height: 100%;
 	border-right: 2pt solid black;
+}
+aside li {
+	width:100%;
+}
+ /* Main Display */
+main {
+	width: 70%;
+	padding: 1em;
+}
+main > h2{
+	width: 100%;
+	text-align: center;
+}
+.item-div > * {
+	display: inline;
 }
