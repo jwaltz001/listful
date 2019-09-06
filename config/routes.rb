@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/todos/:id', to: 'todos#show'
   post '/todos/id', to: 'todos#create'
   delete '/todos/:id', to: 'todos#create'
+  
   get '/movies', to: 'movies#index'
   get '/movies/:id', to: 'movies#show'
   post '/movies/id', to: 'movies#create'
