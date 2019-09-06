@@ -1,4 +1,4 @@
-class User
+class Todo
 	if(ENV['DATABASE_URL'])
         uri = URI.parse(ENV['DATABASE_URL'])
         DB = PG.connect(uri.hostname, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
@@ -6,12 +6,12 @@ class User
         DB = PG.connect({:host => "localhost", :port => 5432, :dbname => 'listful'})
     end
 	def self.all
-		results = DB.exec("SELECT * FROM users;")
+		results = DB.exec("SELECT * FROM todos;")
 		results.each do |result|
 			puts result
 		end
 	end
 end
 
-# INSERT INTO users ( user_name, password, first_name, admin ) VALUES ('justin', 'justin', 'justin', true );
-# CREATE TABLE users ( id serial, user_name varchar(25) NOT NULL, password varchar(25) NOT NULL, first_name varchar(25), admin BOOLEAN );
+# CREATE TABLE todos ( id serial, user_id smallint, description varchar(300), listName varchar(100) ,isComplete BOOLEAN );
+# INSERT INTO todos ( user_id, description, listName, isComplete ) VALUES (1, 'Finish this project', 'first to do list', false);
