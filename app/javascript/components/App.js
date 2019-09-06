@@ -3,6 +3,7 @@ import React from 'react'
 //Imported Components
 import Header from './Header.js'
 import SideBar from './SideBar.js'
+import Main from './Main.js'
 
 //React Class
 class App extends React.Component {
@@ -14,7 +15,8 @@ class App extends React.Component {
 			view: {
 				page: 'home',
 				pageTitle: 'Welcome to listful'
-			}
+			},
+			listToShow: 'todos'
 		}
 	}
 	//Methods
@@ -30,6 +32,10 @@ class App extends React.Component {
     	return (
       		<div className="container">
 				<Header loggedInUser={this.state.loggedInUser}/>
+					<div className="main-container">
+						<SideBar listToShow={this.state.listToShow}/>
+						<Main listToShow={this.state.listToShow}/>
+					</div>
 			</div>
     	)
   	}

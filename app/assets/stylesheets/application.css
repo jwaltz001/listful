@@ -22,6 +22,11 @@
 :root {
 	--header-font: 'Serif';
 }
+ /* All Elements */
+ul {
+	list-style: none;
+}
+
 /* Header/Nav */
 header {
 	display: flex;
@@ -32,4 +37,11 @@ header {
 }
 .site_title {
 	margin-right: 3em;
+}
+
+/* SideBar */
+aside {
+	width: 25%;
+	height: 100%;
+	border-right: 2pt solid black;
 }

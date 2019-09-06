@@ -4,7 +4,7 @@ class SideBar extends React.Component {
 
 	render () {
 		return (
-			<div>
+			<aside>
 				<ul>
 					<li>the classic to-do</li>
 					<li>movies</li>
@@ -13,8 +13,13 @@ class SideBar extends React.Component {
 					<li>books</li>
 					<li>videos</li>
 					<li>bucket</li>
+					<br/>
+					<br/>
+					<li><i className="material-icons">add</i> Create New </li>
 				</ul>
-			</div>
+			</aside>
 		)
 	}
 }
+
+export default SideBar
