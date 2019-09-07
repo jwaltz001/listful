@@ -4,33 +4,21 @@ import Movies from './Movies.js'
 
 
 class Main extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			listItemsArray: []
-		}
-	}
-	fetchItems = () => {
-			const urlInsert = this.props.listToShow.toLowerCase();
-			fetch(`/${urlInsert}`)
-			.then(data => data.json())
-			.then(jData => {
-				this.setState({ listItemsArray: jData })
-			})
-	}
-
-	componentDidMount() {
-    	this.fetchItems()
-  	}
+	// constructor(props) {
+	// 	super(props)
+	// 	this.state = {
+	//
+	// 	}
+	// }
 
 	render () {
 		if (this.props.listToShow === 'Todos') {
 			return (
-				<Todos listItemsArray={this.state.listItemsArray}/>
+				<Todos listItemsArray={this.props.listItemsArray}/>
 			)
 		} else if (this.props.listToShow === 'Movies') {
 			return (
-				<Movies listItemsArray={this.state.listItemsArray}/>
+				<Movies listItemsArray={this.props.listItemsArray}/>
 			)
 		}
 	}

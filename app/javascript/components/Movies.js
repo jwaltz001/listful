@@ -13,9 +13,9 @@ class Movies extends React.Component {
 							<p>{itemData.description}</p>
 							<p>Watched:
 								{itemData.watched ? (
-									<input type="checkbox" checked />
+									<input type="checkbox" defaultChecked />
 								) : (
-									<input type="checkbox" checked />
+									<input type="checkbox"/>
 								)}
 							</p>
 						</div>

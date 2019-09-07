@@ -1,6 +1,7 @@
 import React from 'react'
 
 class Todos extends React.Component {
+
 	render () {
 		return (
 			<div>
@@ -8,9 +9,9 @@ class Todos extends React.Component {
 					this.props.listItemsArray.map((itemData) => (
 						<div className="todo-div" key={itemData.id}>
 						{itemData.iscomplete ? (
-							<input type="checkbox" checked />
+							<input type="checkbox" defaultChecked />
 						) : (
-							<input type="checkbox" checked />
+							<input type="checkbox"/>
 						)}
 							<h3>{itemData.description}</h3>
 						</div>

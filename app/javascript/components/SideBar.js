@@ -6,8 +6,8 @@ class SideBar extends React.Component {
 			return (
 				<aside>
 					<ul>
-						<li onClick={() => {this.props.handleView('Todos')}}>the classic to-do</li>
-						<li onClick={() => {this.props.handleView('Movies')}}>movies</li>
+						<li onClick={() => {this.props.fetchItems('Todos')}}>the classic to-do</li>
+						<li onClick={() => {this.props.fetchItems('Movies')}}>movies</li>
 						<li>music</li>
 						<li>games</li>
 						<li>books</li>

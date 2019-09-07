@@ -6,12 +6,13 @@ import SideBar from './SideBar.js'
 import Main from './Main.js'
 import Home from './Home.js'
 
-function WarningBanner(props) {
-	if (!props.warn) {
+//Sidebar toggling function
+function SideBarElement(props) {
+	if (!props.show) {
 		return null;
 	}
 	return (
-		<SideBar handleView={props.handleView}/>
+		<SideBar fetchItems={props.fetchItems}/>
 	)
 }
 
@@ -21,6 +22,7 @@ class App extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			listItemsArray: [],
 			showSideBar: false,
 			loggedInUser: "User",
 			view: {
@@ -58,17 +60,33 @@ class App extends React.Component {
 			}
 		})
 	}
+	fetchItems = (view) => {
+			const urlInsert = view.toLowerCase();
+			fetch(`/${urlInsert}`)
+			.then(data => data.json())
+			.then(jData => {
+				this.setState({ listItemsArray: jData })
+			})
+			this.handleView(view)
+	}
+
 	render () {
 		return (
       		<div className="container">
 				<Header handleToggleClick={this.handleToggleClick} showSideBar={this.state.showSideBar}/>
-				<WarningBanner warn={this.state.showSideBar} handleView={this.handleView}/>
 				<div className="main-container">
+					<SideBarElement
+						show={this.state.showSideBar}
+						fetchItems={this.fetchItems}
+					/>
 					{ this.state.view.listToShow === 'Home'
 					? <Home />
 					:<main>
 						<h2><i className="material-icons md-36">add</i></h2>
-						<Main listToShow={this.state.view.listToShow}/>
+						<Main
+							listItemsArray={this.state.listItemsArray}
+							listToShow={this.state.view.listToShow}
+						/>
 					</main>
 					}
 				</div>
