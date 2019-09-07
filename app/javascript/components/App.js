@@ -6,20 +6,36 @@ import SideBar from './SideBar.js'
 import Main from './Main.js'
 import Home from './Home.js'
 
+function WarningBanner(props) {
+	if (!props.warn) {
+		return null;
+	}
+	return (
+		<SideBar handleView={props.handleView}/>
+	)
+}
+
 //React Class
 class App extends React.Component {
 	//State
 	constructor(props) {
 		super(props)
 		this.state = {
+			showSideBar: false,
 			loggedInUser: "User",
 			view: {
 				listToShow: 'Home'
 				//pageTitle: 'Welcome to listful'
 			}
 		}
+		this.handleToggleClick = this.handleToggleClick.bind(this);
 	}
 	//Methods
+	handleToggleClick() {
+	    this.setState(prevState => ({
+	      	showSideBar: !prevState.showSideBar
+	    }));
+  	}
 	handleView = (view) => {
 		let listToShow = '';
 		switch (view) {
@@ -42,15 +58,12 @@ class App extends React.Component {
 			}
 		})
 	}
-
 	render () {
 		return (
       		<div className="container">
-				<Header/>
+				<Header handleToggleClick={this.handleToggleClick} showSideBar={this.state.showSideBar}/>
+				<WarningBanner warn={this.state.showSideBar} handleView={this.handleView}/>
 				<div className="main-container">
-					<SideBar
-						handleView={this.handleView}
-					/>
 					{ this.state.view.listToShow === 'Home'
 					? <Home />
 					:<main>

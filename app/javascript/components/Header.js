@@ -5,7 +5,9 @@ class Header extends React.Component {
 		return (
 			<header>
 			<div>
-				<i className="material-icons md-36">menu</i>
+				<i onClick={this.props.handleToggleClick} className="material-icons md-36">
+					{this.props.showSideBar ? 'menu_open' : 'menu'}
+				</i>
 			</div>
 				<div className= "site_title">
 					<h1>listful.</h1>
