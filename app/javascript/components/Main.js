@@ -2,6 +2,7 @@ import React from 'react'
 import Todos from './Todos.js'
 import Movies from './Movies.js'
 
+
 class Main extends React.Component {
 	constructor(props) {
 		super(props)
@@ -10,11 +11,12 @@ class Main extends React.Component {
 		}
 	}
 	fetchItems = () => {
-	    fetch(`/${this.props.listToShow}`)
-	      	.then(data => data.json())
-	      	.then(jData => {
-	        	this.setState({ listItemsArray: jData })
-	    })
+			const urlInsert = this.props.listToShow.toLowerCase();
+			fetch(`/${urlInsert}`)
+			.then(data => data.json())
+			.then(jData => {
+				this.setState({ listItemsArray: jData })
+			})
 	}
 
 	componentDidMount() {
