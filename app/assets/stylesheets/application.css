@@ -59,7 +59,7 @@ aside li {
 }
  /* Main Display */
 main {
-	width: 70%;
+	width: 100%;
 	padding: 1em;
 }
 main > h2{
