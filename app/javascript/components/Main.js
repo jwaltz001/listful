@@ -1,5 +1,6 @@
 import React from 'react'
-import Item from './Item.js'
+import Todos from './Todos.js'
+import Movies from './Movies.js'
 
 class Main extends React.Component {
 	constructor(props) {
@@ -10,28 +11,26 @@ class Main extends React.Component {
 	}
 	fetchItems = () => {
 	    fetch(`/${this.props.listToShow}`)
-	      .then(data => data.json())
-	      .then(jData => {
-	        this.setState({ listItemsArray: jData })
-	      })
-	    }
+	      	.then(data => data.json())
+	      	.then(jData => {
+	        	this.setState({ listItemsArray: jData })
+	    })
+	}
+
 	componentDidMount() {
     	this.fetchItems()
   	}
 
 	render () {
-		return(
-			<main>
-				<h2><i className="material-icons md-36">add</i></h2>
-				{ this.state.listItemsArray.map((itemData) => (
-					<Item
-			  		key={itemData.id}
-			  		itemData={itemData}
-					/>
-		  		))
-				}
-			</main>
-		)
+		if (this.props.listToShow === 'Todos') {
+			return (
+				<Todos listItemsArray={this.state.listItemsArray}/>
+			)
+		} else if (this.props.listToShow === 'Movies') {
+			return (
+				<Movies listItemsArray={this.state.listItemsArray}/>
+			)
+		}
 	}
 }
 

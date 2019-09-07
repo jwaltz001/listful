@@ -6,12 +6,12 @@ Rails.application.routes.draw do
 	get '/users', to: 'users#index'
 
 	# TODO ROUTES
-	get '/todos', to: 'todos#index'
+	get '/Todos', to: 'todos#index'
   get '/todos/:id', to: 'todos#show'
   post '/todos/id', to: 'todos#create'
   delete '/todos/:id', to: 'todos#create'
-  
-  get '/movies', to: 'movies#index'
+
+  get '/Movies', to: 'movies#index'
   get '/movies/:id', to: 'movies#show'
   post '/movies/id', to: 'movies#create'
   delete '/movies/:id', to: 'movies#create'

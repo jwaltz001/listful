@@ -26,6 +26,10 @@
 ul {
 	list-style: none;
 }
+img {
+	width: 150px;
+	height: auto;
+}
 
 /* Header/Nav */
 header {
@@ -62,6 +66,6 @@ main > h2{
 	width: 100%;
 	text-align: center;
 }
-.item-div > * {
+.todo-div > * {
 	display: inline;
 }

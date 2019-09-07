@@ -16,7 +16,7 @@ class App extends React.Component {
 				page: 'home',
 				pageTitle: 'Welcome to listful'
 			},
-			listToShow: 'todos'
+			listToShow: 'Movies'
 		}
 	}
 	//Methods
@@ -28,13 +28,22 @@ class App extends React.Component {
 			break
 		}
 	}
+
 	render () {
     	return (
       		<div className="container">
 				<Header loggedInUser={this.state.loggedInUser}/>
 					<div className="main-container">
-						<SideBar listToShow={this.state.listToShow}/>
-						<Main listToShow={this.state.listToShow}/>
+						<SideBar
+							listToShow={this.state.listToShow}
+							handleView={this.handleView}
+						/>
+						<main>
+							<h2><i className="material-icons md-36">add</i></h2>
+							<Main
+								listToShow={this.state.listToShow}
+							/>
+						</main>
 					</div>
 			</div>
     	)
