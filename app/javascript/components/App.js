@@ -38,6 +38,7 @@ class App extends React.Component {
 	      	showSideBar: !prevState.showSideBar
 	    }));
   	}
+	
 	handleView = (view) => {
 		let listToShow = '';
 		switch (view) {
