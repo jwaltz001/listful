@@ -21,6 +21,7 @@
 
 :root {
 	--header-font: 'Serif';
+	--orange : orange;
 }
  /* All Elements */
 ul {
@@ -47,7 +48,13 @@ header {
 .main-container {
 	display: flex;
 }
-
+.movie-container {
+	display: flex;
+}
+.list-add-btn {
+	background: var(--orange);
+	margin: 0;
+}
 /* SideBar */
 aside {
 	width: 25%;
@@ -60,11 +67,14 @@ aside li {
  /* Main Display */
 main {
 	width: 100%;
-	padding: 1em;
+
 }
 main > h2{
 	width: 100%;
 	text-align: center;
+}
+main > div {
+	margin: 1em;
 }
 .todo-div > * {
 	display: inline;
