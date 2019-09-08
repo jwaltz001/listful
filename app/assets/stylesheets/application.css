@@ -54,6 +54,8 @@ header {
 .list-add-btn {
 	background: var(--orange);
 	margin: 0;
+	width: 100%;
+	text-align: center;
 }
 /* SideBar */
 aside {
@@ -78,4 +80,11 @@ main > div {
 }
 .todo-div > * {
 	display: inline;
+}
+form {
+	padding:1em;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
 }
