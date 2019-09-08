@@ -7,7 +7,8 @@ class Todos extends React.Component {
 			addForm: false,
 			view: 'list',
 			formData: {
-				description: ''
+				description: '',
+				isComplete: false
 			}
 		}
 		this.handleChange = this.handleChange.bind(this)
@@ -20,29 +21,34 @@ class Todos extends React.Component {
 	handleChange = (event) => {
 		this.setState({
 			formData: {
-				[event.target.id] : event.target.value
+				[event.target.id] : event.target.value,
+				isComplete: false
 			}
 		})
 	}
 
 	handleSubmit = (event) => {
 		event.preventDefault()
-		if(this.state.addform) {
-      		this.props.handleCreate(this.state.formData, 'Todos')
-    	}
+		//if(this.state.addform) {
+			this.props.handleCreate(this.state.formData, 'Todos')
+    	//}
 	}
 
 	render () {
 		if (this.state.addForm) {
 			return (
 				<main>
-					<h2><i onClick={this.toggleAddForm} className="material-icons md-36">close</i></h2>
+					<h2>
+						<i onClick={this.toggleAddForm} className="material-icons md-36">close</i>
+					</h2>
 					<form onSubmit={this.handleSubmit}>
 						<label htmlFor="description">New To Do Item</label>
 							<input type="text" id="description"
 								value={this.state.formData.description}
 								onChange={this.handleChange}/>
-						<button type="submit" onClick={this.AddItem} className="list-add-btn"><i className="material-icons md-36">add</i></button>
+						<button type="submit" className="list-add-btn">
+							<i className="material-icons md-36">add</i>
+						</button>
 					</form>
 				</main>
 			)

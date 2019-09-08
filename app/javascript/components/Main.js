@@ -4,8 +4,9 @@ import Movies from './Movies.js'
 
 
 class Main extends React.Component {
-
 	handleCreate = (createData, listType) => {
+		//console.log(JSON.stringify(createData));
+
 		const urlInsert = listType.toLowerCase()
 		fetch(`/${urlInsert}`, {
 	      	body: JSON.stringify(createData),
@@ -15,7 +16,7 @@ class Main extends React.Component {
 	        	'Content-Type': 'application/json'
 	      	}
 	    }).then(createdItem => {
-	        return createdItem.json()
+			return createdItem.json()
 	    }).then(jsonedItem => {
 			this.props.listItemsArray.push(jsonedItem)
 	    }).catch(err => console.log(err))
