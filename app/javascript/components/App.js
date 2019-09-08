@@ -61,6 +61,7 @@ class App extends React.Component {
 			}
 		})
 	}
+
 	fetchItems = (view) => {
 			const urlInsert = view.toLowerCase();
 			fetch(`/${urlInsert}`)
@@ -85,6 +86,7 @@ class App extends React.Component {
 					:<Main
 						listItemsArray={this.state.listItemsArray}
 						listToShow={this.state.view.listToShow}
+						fetchItems={this.state.fetchItems}
 					/>
 					}
 				</div>

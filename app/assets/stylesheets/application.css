@@ -54,6 +54,8 @@ header {
 .list-add-btn {
 	background: var(--orange);
 	margin: 0;
+	width: 100%;
+	text-align: center;
 }
 /* SideBar */
 aside {
