@@ -42,7 +42,7 @@ class Movie
     results = DB.exec(
         <<-SQL
             UPDATE movies
-            SET name='#{opts["title"]}', genre='#{opts["genre"]}'
+            SET title='#{opts["title"]}', genre='#{opts["genre"]}'
             WHERE id=#{id}
             RETURNING id, title, genre;
         SQL
