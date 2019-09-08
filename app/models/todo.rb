@@ -3,7 +3,7 @@ class Todo
         uri = URI.parse(ENV['DATABASE_URL'])
         DB = PG.connect(uri.hostuser_id, uri.port, nil, nil, uri.path[1..-1], uri.user, uri.password)
     else
-        DB = PG.connect({:host => "localhost", :port => 5432, :dbname => 'listful'})
+        DB = PG.connect({host: "localhost", port: 5432, dbname: 'listful'})
     end
 	def self.all
 		results = DB.exec("SELECT * FROM todos;")
@@ -14,9 +14,9 @@ class Todo
 	def self.create(opts)
 		 results = DB.exec(
 			 <<-SQL
-				 INSERT INTO todos (user_id, description, isComplete)
-				 VALUES ('#{opts["user_id"]}', #{opts["description"]}, #{opts["isComplete"]})
-				 RETURNING id, user_id, description;
+				 INSERT INTO todos (description, isComplete)
+				 VALUES ('#{opts["description"]}', '#{opts["isComplete"]}')
+				 RETURNING id, description, isComplete;
 			 SQL
 		 )
 		 return {
