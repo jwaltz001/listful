@@ -7,18 +7,15 @@ class MoviesController < ApplicationController
  		def show
 		 render json: Movie.find(params["id"])
  		end
-
- # create
+ 		# create
  		def create
 		 render json: Movie.create(params["post"])
  		end
-
- # delete
+ 		# delete
  		def delete
 	 		render json: Movie.delete(params["id"])
  		end
-
- # update
+		# update
  		def update
 	 		render json: Movie.update(params["id"], params["post"])
  		end

@@ -16,7 +16,22 @@ class Movie
       return {
         "id" => results.first["id"].to_i,
         "title" => results.first["title"],
-        "genre" => results.first["genre"].to_i
+        "genre" => results.first["genre"]
+      }
+    end
+		def self.create(opts)
+      results = DB.exec(
+        <<-SQL
+          INSERT INTO movies (title, genre, description)
+          VALUES (#{opts["id"]},'#{opts["title"]}', '#{opts["genre"]}', '#{opts["description"]}' )
+          RETURNING id, title, genre;
+        SQL
+      )
+      return {
+        "id" => results.first["id"].to_i,
+        "title" => results.first["title"],
+        "genre" => results.first["genre"],
+				"description" => results.first["description"]
       }
     end
 end

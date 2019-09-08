@@ -11,6 +11,20 @@ class Movie
 			puts result
 		end
 	end
+	def self.create(opts)
+      results = DB.exec(
+        <<-SQL
+          INSERT INTO songs (name, age)
+          VALUES ('#{opts["name"]}', #{opts["age"]})
+          RETURNING id, name, age;
+        SQL
+      )
+      return {
+        "id" => results.first["id"].to_i,
+        "name" => results.first["name"],
+        "age" => results.first["age"].to_i
+      }
+    end
 end
 
 # CREATE TABLE songs (id serial, title text, genre text, description text, listenedTo BOOLEAN, listName text);
