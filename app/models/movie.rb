@@ -49,8 +49,8 @@ class Movie
     )
     return {
         "id" => results.first["id"].to_i,
-        "name" => results.first["name"],
-        "age" => results.first["age"].to_i,
+        "title" => results.first["title"],
+        "genre" => results.first["genre"].to_i,
     }
 		end
 
