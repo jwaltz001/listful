@@ -23,7 +23,7 @@ class Movie
       results = DB.exec(
         <<-SQL
           INSERT INTO movies (title, genre, description)
-          VALUES (#{opts["id"]},'#{opts["title"]}', '#{opts["genre"]}', '#{opts["description"]}' )
+          VALUES ('#{opts["title"]}', '#{opts["genre"]}', '#{opts["description"]}' )
           RETURNING id, title, genre;
         SQL
       )

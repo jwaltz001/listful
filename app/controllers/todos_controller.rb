@@ -3,14 +3,14 @@ class TodosController < ApplicationController
     def index
         render json: Todo.all
     end
-		show
+#show
  		def show
 		 render json: Todo.find(params["id"])
  		end
 
  # create
  		def create
-		 render json: Todo.create(params["post"])
+		 render json: Todo.create(params["todo"])
  		end
 
  # delete
@@ -20,6 +20,6 @@ class TodosController < ApplicationController
 
  # update
  		def update
-	 		render json: Todo.update(params["id"], params["post"])
+	 		render json: Todo.update(params["id"], params["todo"])
  		end
 end
