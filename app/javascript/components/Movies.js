@@ -5,16 +5,14 @@ class Movies extends React.Component {
 		super(props)
 		this.state = {
 			addForm: false,
-			view: 'list',
-			formData: {
-				title: '',
-				genre: '',
-				description: '',
-				watched: false,
-				imageurl:''
-			}
+			title: '',
+			genre: '',
+			description: '',
+			watched: false,
+			imageurl:''
 		}
 		this.handleChange = this.handleChange.bind(this)
+		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	toggleAddForm = () => {
@@ -22,56 +20,70 @@ class Movies extends React.Component {
 	}
 
 	handleChange = (event) => {
-		const value = target.type === 'checkbox' ? event.target.checked : event.target.value;
 		this.setState({
-			formData: {
-				[event.target.id] : value
-			}
+				[event.target.id] : event.target.type === 'checkbox' ? event.target.checked : event.target.value
 		})
 	}
 
 	handleSubmit = (event) => {
 		event.preventDefault()
+		const formData = {
+			title: this.state.title,
+			genre: this.state.genre,
+			description: this.state.description,
+			watched: this.state.watched,
+			imageurl: this.state.imageurl
+		}
 		if(this.state.addform) {
-      		this.props.handleCreate(this.state.formData, 'Movies')
+      		this.props.handleCreate(formData, 'Movies')
     	}
 	}
 
+	componentDidMount() {
+	    this.setState({
+		    title: this.state.title,
+		    genre: this.state.genre,
+		    description: this.state.description,
+			watched: this.state.watched,
+			imageurl: this.state.imageurl
+	    })
+  }
+
 	render () {
-		if (this.state.addform) {
+		if (this.state.addForm) {
 			return (
 				<main>
 					<h2>
 						<i onClick={this.toggleAddForm} className="material-icons md-36">close</i>
 					</h2>
 					<form onSubmit={this.handleSubmit}>
-						<label htmlFor="title">Title
+						<label htmlFor="title">Title</label>
 							<input type="text" id="title"
-								value={this.state.formData.title}
+								value={this.state.title}
 								onChange={this.handleChange}/>
-						</label>
-						<label htmlFor="genre">genre
+
+						<label htmlFor="genre">Genre</label>
 							<input type="text" id="genre"
-								value={this.state.formData.genre}
+								value={this.state.genre}
 								onChange={this.handleChange}/>
-						</label>
-						<label htmlFor="description">Description
+
+						<label htmlFor="description">Description</label>
 							<input type="text" id="description"
-								value={this.state.formData.description}
+								value={this.state.description}
 								onChange={this.handleChange}/>
-						</label>
-						<label htmlFor="imageurl">imageurl
+
+						<label htmlFor="imageurl">Poster Url</label>
 							<input type="text" id="imageurl"
-								value={this.state.formData.imageurl}
+								value={this.state.imageurl}
 								onChange={this.handleChange}/>
-						</label>
-						<label htmlFor="watched">imageurl
+
+						<label htmlFor="watched">imageurl</label>
 							<input
 	            				id="watched"
 	            				type="checkbox"
 	            				checked={this.state.watched}
 	            				onChange={this.handleChange} />
-						</label>
+
 						<button onClick={this.AddItem} type="submit" className="list-add-btn">
 							<i className="material-icons md-36">add</i>
 						</button>
