@@ -12,6 +12,7 @@ class Todos extends React.Component {
 		}
 		this.handleChange = this.handleChange.bind(this)
 	}
+
 	toggleAddForm = () => {
 		this.setState({ addForm: !this.state.addForm })
 	}
