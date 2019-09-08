@@ -4,7 +4,7 @@ class SideBar extends React.Component {
 
 	render () {
 			return (
-				<aside>
+				<div className="sidebar">
 					<ul>
 						<li onClick={() => {this.props.fetchItems('Todos')}}>the classic to-do</li>
 						<li onClick={() => {this.props.fetchItems('Movies')}}>movies</li>
@@ -17,7 +17,7 @@ class SideBar extends React.Component {
 						<br/>
 						<li> Create New </li>
 					</ul>
-				</aside>
+				</div>
 			)
 	}
 }
