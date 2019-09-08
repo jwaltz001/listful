@@ -9,12 +9,15 @@ Rails.application.routes.draw do
 	get '/todos', to: 'todos#index'
   	get '/todos/:id', to: 'todos#show'
   	post '/todos', to: 'todos#create'
-  	delete '/todos/:id', to: 'todos#create'
+  	delete '/todos/:id', to: 'todos#delete'
+    put '/todos/:id', to: 'todos#update'
 
   	get '/movies', to: 'movies#index'
   	get '/movies/:id', to: 'movies#show'
   	post '/movies', to: 'movies#create'
   	delete '/movies/:id', to: 'movies#delete'
+    put '/movies/:id', to: 'movies#update'
+
 
   	get '/music', to: 'music#index'
   	get '/music/:id', to: 'music#show'
