@@ -28,7 +28,7 @@ class Todos extends React.Component {
 	handleSubmit = (event) => {
 		event.preventDefault()
 		if(this.state.addform) {
-      		this.props.handleCreate(this.state.formData, 'Todo')
+      		this.props.handleCreate(this.state.formData, 'Todos')
     	}
 	}
 
@@ -49,7 +49,9 @@ class Todos extends React.Component {
 		} else {
 			return (
 				<main>
-					<button onClick={this.toggleAddForm} className="list-add-btn"><i className="material-icons md-36">add</i></button>
+					<button onClick={this.toggleAddForm} className="list-add-btn">
+						<i className="material-icons md-36">add</i>
+					</button>
 					{
 						this.props.listItemsArray.map((itemData) => (
 							<div className="todo-div" key={itemData.id}>
