@@ -11,6 +11,7 @@ class Todo
 			puts result
 		end
 	end
+
 end
 
 # CREATE TABLE todos ( id serial, user_id smallint, description varchar(300), listName varchar(100) ,isComplete BOOLEAN );
