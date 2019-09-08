@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  	root 'site#index'
+  root 'site#index'
 
 	# USER ROUTES
 	get '/users', to: 'users#index'
@@ -13,12 +13,12 @@ Rails.application.routes.draw do
 
   get '/movies', to: 'movies#index'
   get '/movies/:id', to: 'movies#show'
-  post '/movies/id', to: 'movies#create'
-  delete '/movies/:id', to: 'movies#create'
+  post '/movies', to: 'movies#create'
+  delete '/movies/:id', to: 'movies#delete'
 
   get '/music', to: 'music#index'
   get '/music/:id', to: 'music#show'
   post '/music/id', to: 'music#create'
-  delete '/music/:id', to: 'music#create'
+  delete '/music/:id', to: 'music#delete'
 
 end
