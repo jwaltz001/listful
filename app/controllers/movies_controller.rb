@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
  		end
  		# create
  		def create
-		 render json: Movie.create(params["post"])
+		 render json: Movie.create(params["movie"])
  		end
  		# delete
  		def delete
