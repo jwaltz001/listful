@@ -1,11 +1,98 @@
+//Dependancies
 import React from 'react'
+//Imported Components
+import Header from './Header.js'
+import SideBar from './SideBar.js'
+import Main from './Main.js'
+import Home from './Home.js'
 
+//Sidebar toggling function
+function SideBarElement(props) {
+	if (!props.show) {
+		return null;
+	}
+	return (
+		<SideBar fetchItems={props.fetchItems}/>
+	)
+}
+
+//React Class
 class App extends React.Component {
-  render () {
-    return (
-      <h1>Rails and React 4Eva!</h1>
-    )
-  }
+	//State
+	constructor(props) {
+		super(props)
+		this.state = {
+			listItemsArray: [],
+			showSideBar: false,
+			loggedInUser: "User",
+			view: {
+				listToShow: 'Home'
+				//pageTitle: 'Welcome to listful'
+			}
+		}
+		this.handleToggleClick = this.handleToggleClick.bind(this);
+	}
+	//Methods
+	handleToggleClick() {
+	    this.setState(prevState => ({
+	      	showSideBar: !prevState.showSideBar
+	    }));
+  	}
+
+	handleView = (view) => {
+		let listToShow = '';
+		switch (view) {
+			case 'Home':
+				listToShow = 'Home';
+				// pageTitle = `Hi ${user}, Welcome back`;
+				break;
+			case 'Todos':
+				listToShow = 'Todos';
+				break;
+			case 'Movies':
+				listToShow = 'Movies';
+				break;
+			default:
+				break;
+		}
+		this.setState({
+			view: {
+				listToShow: listToShow
+			}
+		})
+	}
+
+	fetchItems = (view) => {
+			const urlInsert = view.toLowerCase();
+			fetch(`/${urlInsert}`)
+			.then(data => data.json())
+			.then(jData => {
+				this.setState({ listItemsArray: jData })
+			})
+			this.handleView(view)
+	}
+
+	render () {
+		return (
+      		<div className="container">
+				<Header handleToggleClick={this.handleToggleClick} showSideBar={this.state.showSideBar}/>
+				<div className="main-container">
+					<SideBarElement
+						show={this.state.showSideBar}
+						fetchItems={this.fetchItems}
+					/>
+					{ this.state.view.listToShow === 'Home'
+					? <Home />
+					:<Main
+						listItemsArray={this.state.listItemsArray}
+						listToShow={this.state.view.listToShow}
+						fetchItems={this.state.fetchItems}
+					/>
+					}
+				</div>
+			</div>
+    	)
+  	}
 }
 
 export default App
