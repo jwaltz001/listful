@@ -42,15 +42,23 @@ class Movie
     results = DB.exec(
         <<-SQL
             UPDATE movies
-            SET title='#{opts["title"]}', genre='#{opts["genre"]}'
+            SET title='#{opts["title"]}', genre='#{opts["genre"]}',
+						description='#{opts["description"]}',
+						watched='#{opts["watched"]}',
+						listName='#{opts["listName"]}',
+						imageURL='#{opts["imageURL"]}'
             WHERE id=#{id}
-            RETURNING id, title, genre;
+            RETURNING id, title, genre, description, watched, listName, imageURL;
         SQL
     )
     return {
         "id" => results.first["id"].to_i,
         "title" => results.first["title"],
-        "genre" => results.first["genre"].to_i,
+        "genre" => results.first["genre"],
+				"description" => results.first["description"],
+				"watched" => results.first["watched"],
+				"listName" => results.first["listName"],
+				"imageURL" => results.first["imageURL"]
     }
 		end
 
