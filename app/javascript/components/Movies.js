@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Search from './Search.js'
 class Movies extends React.Component {
 	constructor(props) {
 		super(props)
@@ -9,7 +9,7 @@ class Movies extends React.Component {
 			genre: '',
 			description: '',
 			watched: false,
-			imageurl: ''
+			imageurl: '',
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -37,6 +37,16 @@ class Movies extends React.Component {
 		this.props.handleMainView(viewType)
 	}
 
+	insertSelectedMovie = (selectedMovie) => {
+		this.setState({
+			title: selectedMovie.Title,
+			genre: selectedMovie.Type,
+			description: '',
+			watched: false,
+			imageurl: selectedMovie.Poster,
+		})
+	}
+
 	handleChange = (event) => {
 		this.setState({
 				[event.target.id] : event.target.type === 'checkbox' ? event.target.checked : event.target.value
@@ -59,15 +69,25 @@ class Movies extends React.Component {
     	}
 	}
 
-	// componentDidMount() {
-	//     this.setState({
-	// 	    title: this.state.title,
-	// 	    genre: this.state.genre,
-	// 	    description: this.state.description,
-	// 		watched: this.state.watched,
-	// 		imageurl: this.state.imageurl
-	//     })
-    // }
+	componentDidMount() {
+	    this.setState({
+		    title: this.state.title,
+		    genre: this.state.genre,
+		    description: this.state.description,
+			watched: this.state.watched,
+			imageurl: this.state.imageurl
+	    })
+    }
+
+	componentWillUnmount() {
+	    this.setState({
+		    title: this.state.title,
+		    genre: this.state.genre,
+		    description: this.state.description,
+			watched: this.state.watched,
+			imageurl: this.state.imageurl
+	    })
+    }
 
 	render () {
 		if (this.props.mainView != 'list') {
@@ -76,6 +96,10 @@ class Movies extends React.Component {
 					<h2>
 						<i onClick={()=>{this.handleMovieFormView('list')}} className="material-icons md-36">close</i>
 					</h2>
+					<Search
+						insertSelectedMovie={this.insertSelectedMovie}
+						mainView={this.props.mainView}
+					/>
 					<form onSubmit={this.handleSubmit}>
 						<label htmlFor="title">Title</label>
 							<input type="text" id="title"
@@ -87,7 +111,7 @@ class Movies extends React.Component {
 								value={this.state.genre}
 								onChange={this.handleChange}/>
 
-						<label htmlFor="description">Description</label>
+						<label htmlFor="description">Comments</label>
 							<input type="text" id="description"
 								value={this.state.description}
 								onChange={this.handleChange}/>
