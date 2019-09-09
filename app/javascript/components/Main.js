@@ -4,6 +4,19 @@ import Movies from './Movies.js'
 
 
 class Main extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			mainView: 'list'
+		}
+	}
+
+	handleMainView = (viewType) => {
+		this.setState({
+			mainView: viewType
+		})
+	}
+
 	handleCreate = (createData, listType) => {
 		//console.log(JSON.stringify(createData));
 
@@ -25,7 +38,12 @@ class Main extends React.Component {
 	render () {
 		if (this.props.listToShow === 'Todos') {
 			return (
-				<Todos handleCreate={this.handleCreate} listItemsArray={this.props.listItemsArray}/>
+				<Todos
+					mainView={this.state.mainView}
+					handleCreate={this.handleCreate}
+					listItemsArray={this.props.listItemsArray}
+					handleMainView={this.handleMainView}
+					/>
 			)
 		} else if (this.props.listToShow === 'Movies') {
 			return (
