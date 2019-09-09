@@ -4,37 +4,32 @@ class Todos extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			view: 'list',
+			id: null,
 			description: '',
-			isComplete: false
+			isComplete: false,
+			listItemsArray: this.props.listItemsArray
 		}
 		this.handleChange = this.handleChange.bind(this)
 	}
 
-	showAddForm = () => {
-		this.setState({
-			view: 'addForm',
-			description: '',
-			isComplete: false
-		})
-	}
-
-	showEditForm = (descriptionToEdit) => {
-		this.setState({
-			view: 'editForm',
-			description: descriptionToEdit
-		})
-	}
-
-	closeForms = () => {
-		this.setState({
-			view: 'list'
-		})
+	handleTodoFormView = (viewType, itemData) => {
+		if (viewType === 'addForm') {
+				this.setState({
+					description: '',
+					isComplete: false
+				})
+		} else if (viewType === 'editForm') {
+			this.setState({
+				id: itemData.id,
+				description: itemData.description
+			})
+		}
+		this.props.handleView('Todos' , viewType)
 	}
 
 	handleChange = (event) => {
 		this.setState({
-				[event.target.id] : event.target.type === 'checkbox' ? event.target.checked : event.target.value
+			[event.target.id] : event.target.type === 'checkbox' ? event.target.checked : event.target.value
 		})
 	}
 
@@ -42,21 +37,44 @@ class Todos extends React.Component {
 		event.preventDefault()
 		const formData = {
 			description: this.state.description,
-			isComplete: this.state.incomplete
+			isComplete: this.state.isComplete,
+			user_id: 1
 		}
-		if(this.state.view === 'addForm') {
+		if(this.props.mainView === 'addForm') {
 			this.props.handleCreate(formData, 'Todos')
-    	}else if (this.state.view === 'editForm') {
-
+    	}else if (this.props.mainView === 'editForm') {
+			this.props.handleUpdate(formData, 'Todos', this.state.id, 'PUT')
     	}
 	}
-
+	
 	render () {
-		if (this.state.view === 'addForm'  || this.state.view === 'editForm') {
+		if (this.props.mainView === 'list') {
+			return (
+				<main>
+					<button onClick={()=>{this.handleTodoFormView('addForm')}} className="list-add-btn">
+						<i className="material-icons md-36">add</i>
+					</button>
+					{
+						this.props.listItemsArray.map((itemData) => (
+							<div className="todo-div" key={itemData.id}>
+								<form onSubmit={this.handleSubmit}>
+									<button type="submit">Mark as Done</button>
+									<input id="decription" type="hidden" value={itemData.description}/>
+									<h2>{itemData.description}
+										<i className="material-icons md-24" onClick={()=>{this.handleTodoFormView('editForm', itemData)}}>edit</i>
+										<i onClick={()=>{this.props.handleDelete(itemData.id, 'Todos')}} className="material-icons md-24">delete_forever</i>
+										</h2>
+								</form>
+							</div>
+						))
+					}
+				</main>
+			)
+		} else {
 			return (
 				<main>
 					<h2>
-						<i onClick={this.closeForms} className="material-icons md-36">close</i>
+						<i onClick={()=>{this.handleTodoFormView('list')}} className="material-icons md-36">close</i>
 					</h2>
 					<form onSubmit={this.handleSubmit}>
 						<label htmlFor="description">To Do Item:</label>
@@ -69,45 +87,9 @@ class Todos extends React.Component {
 					</form>
 				</main>
 			)
-		} else {
-			return (
-				<main>
-					<button onClick={this.showAddForm} className="list-add-btn">
-						<i className="material-icons md-36">add</i>
-					</button>
-					{
-						this.props.listItemsArray.map((itemData) => (
-							<div className="todo-div" key={itemData.id}>
-								<form onSubmit={this.handleSubmit}>
-									<button type="submit">Mark as Done</button>
-									<input id="decription" type="hidden" value={itemData.description}/>
-									<h2>{itemData.description} <i className="material-icons md-24" onClick={()=>{this.showEditForm(itemData.description)}}>edit</i></h2>
-								</form>
-							</div>
-						))
-					}
-				</main>
-			)
 		}
 	}
 }
 
 
 export default Todos
-
-// {itemData.iscomplete ? (
-// 	<input
-// 		id="isComplete"
-// 		type="checkbox"
-// 		defaultChecked
-// 		checked={this.state.isComplete}
-// 		onChange={this.handleChange}
-// 	/>
-// ) : (
-// 	<input
-// 		id="isComplete"
-// 		type="checkbox"
-// 		checked={this.state.isComplete}
-// 		onChange={this.handleChange}
-// 	/>
-// )}
