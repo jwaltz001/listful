@@ -17,6 +17,6 @@ class MoviesController < ApplicationController
  		end
 		# update
  		def update
-	 		render json: Movie.update(params["id"], params["post"])
+	 		render json: Movie.update(params["id"], params["movie"])
  		end
 end

@@ -34,6 +34,34 @@ class Movie
 				"description" => results.first["description"]
       }
     end
+		def self.delete(id)
+      results = DB.exec("DELETE FROM movies WHERE id=#{id};")
+      return { "deleted" => true }
+    end
+		def self.update(id, opts)
+    results = DB.exec(
+        <<-SQL
+            UPDATE movies
+            SET title='#{opts["title"]}', genre='#{opts["genre"]}',
+						description='#{opts["description"]}',
+						watched='#{opts["watched"]}',
+						listName='#{opts["listName"]}',
+						imageURL='#{opts["imageURL"]}'
+            WHERE id=#{id}
+            RETURNING id, title, genre, description, watched, listName, imageURL;
+        SQL
+    )
+    return {
+        "id" => results.first["id"].to_i,
+        "title" => results.first["title"],
+        "genre" => results.first["genre"],
+				"description" => results.first["description"],
+				"watched" => results.first["watched"],
+				"listName" => results.first["listName"],
+				"imageURL" => results.first["imageURL"]
+    }
+		end
+
 end
 # CREATE TABLE movies (id serial, title text, genre text, description text, watched BOOLEAN, listName text, imageURL varchar(200));
 # INSERT INTO movies (title, genre, description, watched, imageURL ) VALUES ('Scary Movie', 'Comedy', 'it was hilarious', true, 'https://m.media-amazon.com/images/M/MV5BMGEzZjdjMGQtZmYzZC00N2I4LThiY2QtNWY5ZmQ3M2ExZmM4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg');

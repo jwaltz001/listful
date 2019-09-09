@@ -14,7 +14,7 @@ class Todo
 	def self.create(opts)
 		 results = DB.exec(
 			 <<-SQL
-				 INSERT INTO todos (description, isComplete)
+				 INSERT INTO todos (user_id, description, isComplete)
 				 VALUES ('#{opts["description"]}', '#{opts["isComplete"]}')
 				 RETURNING id, description, isComplete;
 			 SQL
@@ -24,6 +24,28 @@ class Todo
 			 "user_id" => results.first["user_id"].to_i,
 			 "description" => results.first["description"]
 		 }
+	 end
+	 def self.delete(id)
+		 results = DB.exec("DELETE FROM todos WHERE id=#{id};")
+		 return { "deleted" => true }
+	 end
+	 def self.update(id, opts)
+	 results = DB.exec(
+			 <<-SQL
+					 UPDATE todos
+					 SET isComplete='#{opts["isComplete"]}', user_id='#{opts["user_id"]}',
+					 description='#{opts["description"]}',
+					 listName='#{opts["listName"]}'
+					 WHERE id=#{id}
+					 RETURNING id, user_id, isComplete, description, listName;
+			 SQL
+	 )
+	 return {
+			 "id" => results.first["id"].to_i,
+			 "user_id" => results.first["user_id"],
+			 "description" => results.first["description"],
+			 "listName" => results.first["listName"]
+	 }
 	 end
 
 end
