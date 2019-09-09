@@ -26,16 +26,16 @@ class Todo
 		 }
 	 end
 	 def self.delete(id)
-		 results = DB.exec("DELETE FROM movies WHERE id=#{id};")
+		 results = DB.exec("DELETE FROM todos WHERE id=#{id};")
 		 return { "deleted" => true }
 	 end
 	 def self.update(id, opts)
 	 results = DB.exec(
 			 <<-SQL
-					 UPDATE movies
+					 UPDATE todos
 					 SET isComplete='#{opts["isComplete"]}', user_id='#{opts["user_id"]}',
 					 description='#{opts["description"]}',
-					 listName='#{opts["listName"]}',
+					 listName='#{opts["listName"]}'
 					 WHERE id=#{id}
 					 RETURNING id, user_id, isComplete, description, listName;
 			 SQL
