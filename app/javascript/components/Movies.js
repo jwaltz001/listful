@@ -59,15 +59,15 @@ class Movies extends React.Component {
     	}
 	}
 
-	componentDidMount() {
-	    this.setState({
-		    title: this.state.title,
-		    genre: this.state.genre,
-		    description: this.state.description,
-			watched: this.state.watched,
-			imageurl: this.state.imageurl
-	    })
-    }
+	// componentDidMount() {
+	//     this.setState({
+	// 	    title: this.state.title,
+	// 	    genre: this.state.genre,
+	// 	    description: this.state.description,
+	// 		watched: this.state.watched,
+	// 		imageurl: this.state.imageurl
+	//     })
+    // }
 
 	render () {
 		if (this.props.mainView != 'list') {

@@ -106,7 +106,9 @@ class Main extends React.Component {
 				/>
 			)
 		}else if (this.props.listToShow === 'Loadscreen') {
-			return (<Loadscreen />)
+			return (
+				<Loadscreen />
+			)
 		}
 	}
 }
