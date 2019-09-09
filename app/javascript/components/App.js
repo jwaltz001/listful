@@ -26,8 +26,8 @@ class App extends React.Component {
 			showSideBar: false,
 			loggedInUser: "User",
 			view: {
-				listToShow: 'Home'
-				//pageTitle: 'Welcome to listful'
+				listToShow: 'Home',
+				page: 'list'
 			}
 		}
 		this.handleToggleClick = this.handleToggleClick.bind(this);

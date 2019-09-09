@@ -4,37 +4,29 @@ class Todos extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			view: 'list',
 			description: '',
 			isComplete: false
 		}
 		this.handleChange = this.handleChange.bind(this)
 	}
 
-	showAddForm = () => {
-		this.setState({
-			view: 'addForm',
-			description: '',
-			isComplete: false
-		})
-	}
-
-	showEditForm = (descriptionToEdit) => {
-		this.setState({
-			view: 'editForm',
-			description: descriptionToEdit
-		})
-	}
-
-	closeForms = () => {
-		this.setState({
-			view: 'list'
-		})
+	handleTodoFormView = (viewType, itemData) => {
+		if (viewType === 'addForm') {
+				this.setState({
+					description: '',
+					isComplete: false
+				})
+		} else if (viewType === 'editForm') {
+			this.setState({
+				description: itemData.description
+			})
+		}
+		this.props.handleMainView(viewType)
 	}
 
 	handleChange = (event) => {
 		this.setState({
-				[event.target.id] : event.target.type === 'checkbox' ? event.target.checked : event.target.value
+			[event.target.id] : event.target.type === 'checkbox' ? event.target.checked : event.target.value
 		})
 	}
 
@@ -44,19 +36,20 @@ class Todos extends React.Component {
 			description: this.state.description,
 			isComplete: this.state.incomplete
 		}
-		if(this.state.view === 'addForm') {
+		if(this.props.mainView === 'addForm') {
 			this.props.handleCreate(formData, 'Todos')
-    	}else if (this.state.view === 'editForm') {
+			this.handleTodoFormView('list')
+    	}else if (this.props.mainView === 'editForm') {
 
     	}
 	}
 
 	render () {
-		if (this.state.view === 'addForm'  || this.state.view === 'editForm') {
+		if (this.props.mainView != 'list') {
 			return (
 				<main>
 					<h2>
-						<i onClick={this.closeForms} className="material-icons md-36">close</i>
+						<i onClick={()=>{this.handleTodoFormView('list')}} className="material-icons md-36">close</i>
 					</h2>
 					<form onSubmit={this.handleSubmit}>
 						<label htmlFor="description">To Do Item:</label>
@@ -72,7 +65,7 @@ class Todos extends React.Component {
 		} else {
 			return (
 				<main>
-					<button onClick={this.showAddForm} className="list-add-btn">
+					<button onClick={()=>{this.handleTodoFormView('addForm')}} className="list-add-btn">
 						<i className="material-icons md-36">add</i>
 					</button>
 					{
@@ -81,7 +74,10 @@ class Todos extends React.Component {
 								<form onSubmit={this.handleSubmit}>
 									<button type="submit">Mark as Done</button>
 									<input id="decription" type="hidden" value={itemData.description}/>
-									<h2>{itemData.description} <i className="material-icons md-24" onClick={()=>{this.showEditForm(itemData.description)}}>edit</i></h2>
+									<h2>{itemData.description}
+										<i className="material-icons md-24" onClick={()=>{this.handleTodoFormView('editForm', itemData)}}>edit</i>
+										<i className="material-icons md-24">delete_forever</i>
+										</h2>
 								</form>
 							</div>
 						))
