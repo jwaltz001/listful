@@ -4,19 +4,37 @@ class Movies extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			addForm: false,
+			id: null,
 			title: '',
 			genre: '',
 			description: '',
 			watched: false,
-			imageurl:''
+			imageurl: ''
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
-	toggleAddForm = () => {
-		this.setState({ addForm: !this.state.addForm })
+	handleMovieFormView = (viewType, itemData) => {
+		if (viewType === 'addForm') {
+				this.setState({
+					title: '',
+					genre: '',
+					description: '',
+					watched: false,
+					imageurl:''
+				})
+		} else if (viewType === 'editForm') {
+			this.setState({
+				id: itemData.id,
+				title: itemData.title,
+				genre: itemData.genre,
+				description: itemData.description,
+				watched: itemData.watched,
+				imageurl:itemData.imageurl
+			})
+		}
+		this.props.handleMainView(viewType)
 	}
 
 	handleChange = (event) => {
@@ -34,8 +52,10 @@ class Movies extends React.Component {
 			watched: this.state.watched,
 			imageurl: this.state.imageurl
 		}
-		if(this.state.addform) {
+		if(this.props.mainView === 'addForm') {
       		this.props.handleCreate(formData, 'Movies')
+    	}else if (this.props.mainView === 'editForm') {
+    		this.props.handleUpdate(formData, 'Movies', this.state.id)
     	}
 	}
 
@@ -47,14 +67,14 @@ class Movies extends React.Component {
 			watched: this.state.watched,
 			imageurl: this.state.imageurl
 	    })
-  }
+    }
 
 	render () {
-		if (this.state.addForm) {
+		if (this.props.mainView != 'list') {
 			return (
 				<main>
 					<h2>
-						<i onClick={this.toggleAddForm} className="material-icons md-36">close</i>
+						<i onClick={()=>{this.handleMovieFormView('list')}} className="material-icons md-36">close</i>
 					</h2>
 					<form onSubmit={this.handleSubmit}>
 						<label htmlFor="title">Title</label>
@@ -84,7 +104,7 @@ class Movies extends React.Component {
 	            				checked={this.state.watched}
 	            				onChange={this.handleChange} />
 
-						<button onClick={this.AddItem} type="submit" className="list-add-btn">
+						<button type="submit" className="list-add-btn">
 							<i className="material-icons md-36">add</i>
 						</button>
 					</form>
@@ -93,7 +113,7 @@ class Movies extends React.Component {
 		} else {
 			return (
 				<main>
-					<button onClick={this.toggleAddForm} className="list-add-btn">
+					<button onClick={()=>{this.handleMovieFormView('addForm')}} className="list-add-btn">
 						<i className="material-icons md-36">add</i>
 					</button>
 					<div className="movie-container">
@@ -111,6 +131,8 @@ class Movies extends React.Component {
 									<input type="checkbox"/>
 								)}
 								</p>
+								<i className="material-icons md-24" onClick={()=>{this.handleMovieFormView('editForm', itemData)}}>edit</i>
+								<i onClick={()=>{this.props.handleDelete(itemData.id, 'todos')}} className="material-icons md-24">delete_forever</i>
 							</div>
 						))
 					}

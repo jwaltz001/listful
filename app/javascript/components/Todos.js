@@ -4,6 +4,7 @@ class Todos extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			id: null,
 			description: '',
 			isComplete: false
 		}
@@ -18,6 +19,7 @@ class Todos extends React.Component {
 				})
 		} else if (viewType === 'editForm') {
 			this.setState({
+				id: itemData.id,
 				description: itemData.description
 			})
 		}
@@ -34,12 +36,13 @@ class Todos extends React.Component {
 		event.preventDefault()
 		const formData = {
 			description: this.state.description,
-			isComplete: this.state.isComplete
+			isComplete: this.state.isComplete,
+			user_id: 1
 		}
 		if(this.props.mainView === 'addForm') {
 			this.props.handleCreate(formData, 'Todos')
     	}else if (this.props.mainView === 'editForm') {
-
+			this.props.handleUpdate(formData, 'Todos', this.state.id)
     	}
 	}
 
