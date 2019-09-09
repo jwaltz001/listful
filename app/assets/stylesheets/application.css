@@ -47,6 +47,7 @@ header {
 }
 .movie-container {
 	display: flex;
+	flex-flow: wrap;
 }
 .list-add-btn {
 	background: var(--orange);

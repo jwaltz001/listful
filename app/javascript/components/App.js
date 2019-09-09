@@ -25,7 +25,8 @@ class App extends React.Component {
 			listItemsArray: [],
 			showSideBar: false,
 			loggedInUser: "User",
-			listToShow: 'Home'
+			listToShow: 'Home',
+			mainView: 'list'
 		}
 		this.handleToggleClick = this.handleToggleClick.bind(this);
 	}
@@ -36,15 +37,12 @@ class App extends React.Component {
 	    }));
   	}
 
-	handleView = (view) => {
+	handleView = (listType, view, data) => {
 		let listToShow = '';
-		switch (view) {
+		switch (listType) {
 			case 'Home':
 				listToShow = 'Home';
 				// pageTitle = `Hi ${user}, Welcome back`;
-				break;
-			case 'Loadscreen':
-				listToShow = 'Loadscreen';
 				break;
 			case 'Todos':
 				listToShow = 'Todos';
@@ -56,27 +54,42 @@ class App extends React.Component {
 				break;
 		}
 		this.setState({
-			listToShow: listToShow
+			listToShow: listToShow,
+			mainView: view
 		})
 	}
 
-	fetchItems = (view) => {
-			const urlInsert = view.toLowerCase();
+	fetchItems = (listType) => {
+			const urlInsert = listType.toLowerCase();
 			fetch(`/${urlInsert}`)
 			.then(data => data.json())
 			.then(jData => {
 				this.setState({ listItemsArray: jData })
 			})
-			this.handleView(view)
+			this.handleView(listType, 'list')
 	}
 
-	updateListItemsArr = (newItemArr, list) => {
-		this.handleView('Loadscreen')
-		console.log(newItemArr);
-		this.setState({
-			listItemsArray: newItemArr,
-		})
-		this.handleView(list)
+	updateListItemsArr = (item, listType, method) => {
+		console.log("App.js updateListItems params",item, listType, method);
+		if (method === 'POST') {
+			this.setState(prevState => {
+				prevState.listItemsArray.unshift(item)
+				return { listItemsArray: prevState.listItemsArray }
+			})
+		}else if (method === "DELETE") {
+			this.setState(prevState => {
+				const filteredArr = prevState.listItemsArray.filter( arrItem => arrItem.id !== item)
+				return { listItemsArray: filteredArr }
+			})
+		}else if (method === "PUT") {
+			this.setState(prevState => {
+				const filteredItemArr = prevState.listItemsArray.filter( arrItem => arrItem.id !== item.id)
+				console.log()
+				filteredItemArr.unshift(item)
+				return {listItemsArray: filteredItemArr}
+			})
+		}
+		this.handleView(listType, 'list')
 	}
 
 	render () {
@@ -95,6 +108,8 @@ class App extends React.Component {
 						listToShow={this.state.listToShow}
 						fetchItems={this.fetchItems}
 						updateListItemsArr={this.updateListItemsArr}
+						handleView={this.handleView}
+						mainView={this.state.mainView}
 					/>
 					}
 				</div>

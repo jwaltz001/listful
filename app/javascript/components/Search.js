@@ -8,7 +8,7 @@ class Search extends React.Component {
 			apikey: 'apikey=' + 'c1904f71',
 			query: '&s=',
 			numOfResults: '&page=1',
-    		movieTitle: '',
+    		searchText: '',
     		searchURL: ''
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -17,19 +17,18 @@ class Search extends React.Component {
 	handleChange (event) {
   		this.setState({ [event.target.id]: event.target.value })
 	}
+
 	handleSubmit (event) {
   		event.preventDefault()
 		this.setState({
-			searchURL: this.state.baseURL + this.state.apikey + this.state.query +  this.state.movieTitle + this.state.numOfResults
+			searchURL: this.state.baseURL + this.state.apikey + this.state.query +  this.state.searchText + this.state.numOfResults
   		}, () => {
   			fetch(this.state.searchURL)
 			.then((response) => {
-				const testResponse = response.json()
-				console.log(testResponse);
-				return testResponse
+				return response.json()
 			}).then((json) => this.setState({
-				movies: json,
-				movieTitle: ''
+				results: json.Search,
+				searchText: ''
 			}),
   				err => console.log(err))
   		})
@@ -39,11 +38,11 @@ class Search extends React.Component {
 		return(
 			<div>
 				<form onSubmit={this.handleSubmit}>
-					<label htmlFor='movieTitle'>Title</label>
+					<label htmlFor='searchText'>Title</label>
 						<input
-						id='movieTitle'
+						id='searchText'
 						type='text'
-						value={this.state.movieTitle}
+						value={this.state.searchText}
 						onChange={this.handleChange}
 						/>
 						<input
@@ -52,10 +51,10 @@ class Search extends React.Component {
 						/>
 				</form>
 				{
-					this.state.movies ?
+					this.state.results ?
 						<SearchResults
-							movies={this.state.movies.Search}
-							insertSelectedMovie={this.props.insertSelectedMovie}
+							results={this.state.results}
+							insertSelectedItemFromSearch={this.props.insertSelectedItemFromSearch}
 						/> : ''
 				}
 			</div>

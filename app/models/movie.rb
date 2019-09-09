@@ -35,7 +35,9 @@ class Movie
         "id" => results.first["id"].to_i,
         "title" => results.first["title"],
         "genre" => results.first["genre"],
-				"description" => results.first["description"]
+		"description" => results.first["description"],
+		"watched" => results.first["watched"],
+		"imageurl" => results.first["imageurl"]
       }
     end
 		def self.delete(id)

@@ -1,5 +1,6 @@
 import React from 'react'
 import Search from './Search.js'
+
 class Movies extends React.Component {
 	constructor(props) {
 		super(props)
@@ -34,7 +35,7 @@ class Movies extends React.Component {
 				imageurl:itemData.imageurl
 			})
 		}
-		this.props.handleMainView(viewType)
+		this.props.handleView('Movies',viewType)
 	}
 
 	insertSelectedMovie = (selectedMovie) => {
@@ -62,10 +63,11 @@ class Movies extends React.Component {
 			watched: this.state.watched,
 			imageurl: this.state.imageurl
 		}
+		console.log("movies.js handleSubmit() formdata ", formData);
 		if(this.props.mainView === 'addForm') {
       		this.props.handleCreate(formData, 'Movies')
     	}else if (this.props.mainView === 'editForm') {
-    		this.props.handleUpdate(formData, 'Movies', this.state.id)
+    		this.props.handleUpdate(formData, 'Movies', this.state.id, "PUT")
     	}
 	}
 
@@ -78,16 +80,16 @@ class Movies extends React.Component {
 			imageurl: this.state.imageurl
 	    })
     }
-
-	componentWillUnmount() {
-	    this.setState({
-		    title: this.state.title,
-		    genre: this.state.genre,
-		    description: this.state.description,
-			watched: this.state.watched,
-			imageurl: this.state.imageurl
-	    })
-    }
+	//
+	// componentWillUnmount() {
+	//     this.setState({
+	// 	    title: this.state.title,
+	// 	    genre: this.state.genre,
+	// 	    description: this.state.description,
+	// 		watched: this.state.watched,
+	// 		imageurl: this.state.imageurl
+	//     })
+    // }
 
 	render () {
 		if (this.props.mainView != 'list') {
@@ -97,8 +99,9 @@ class Movies extends React.Component {
 						<i onClick={()=>{this.handleMovieFormView('list')}} className="material-icons md-36">close</i>
 					</h2>
 					<Search
-						insertSelectedMovie={this.insertSelectedMovie}
+						insertSelectedItemFromSearch={this.insertSelectedMovie}
 						mainView={this.props.mainView}
+						listToShow={this.props.listToShow}
 					/>
 					<form onSubmit={this.handleSubmit}>
 						<label htmlFor="title">Title</label>
@@ -156,7 +159,7 @@ class Movies extends React.Component {
 								)}
 								</p>
 								<i className="material-icons md-24" onClick={()=>{this.handleMovieFormView('editForm', itemData)}}>edit</i>
-								<i onClick={()=>{this.props.handleDelete(itemData.id, 'todos')}} className="material-icons md-24">delete_forever</i>
+								<i onClick={()=>{this.props.handleDelete(itemData.id, 'Movies')}} className="material-icons md-24">delete_forever</i>
 							</div>
 						))
 					}

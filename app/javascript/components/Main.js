@@ -1,29 +1,10 @@
 import React from 'react'
 import Todos from './Todos.js'
 import Movies from './Movies.js'
-import Loadscreen from './Loadscreen.js'
 
 class Main extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			mainView: 'list',
-		}
-	}
-
-	handleMainView = (viewType) => {
-		this.setState({
-			mainView: viewType
-		})
-	}
-
 	handleCreate = (createData, listType) => {
-		this.setState({
-			mainView: 'list'
-		})
-		const updateListItemsArr = () => {
-			this.props.updateListItemsArr
-		}
+		console.log("main.js handleCreate createData", createData);
 		const urlInsert = listType.toLowerCase()
 		fetch(`/${urlInsert}`, {
 	      	body: JSON.stringify(createData),
@@ -35,15 +16,15 @@ class Main extends React.Component {
 	    }).then(createdItem => {
 			return createdItem.json()
 	    }).then(jsonedItem => {
-			const newItemArr = this.props.listItemsArray.push(jsonedItem)
-			updateListItemsArr(newItemArr, listType)
-			this.setState({
-				mainView: 'list'
-			})
+			console.log("main.js handleCreate jsoned item",jsonedItem);
+			this.props.updateListItemsArr(jsonedItem, listType, 'POST')
+			// this.setState({
+			// 	mainView: 'list'
+			// })
 	    }).catch(err => console.log(err))
 	}
 
-	handleUpdate = (updateData, listType, id) => {
+	handleUpdate = (updateData, listType, id, method) => {
 		const urlInsert = listType.toLowerCase()
 		console.log("update data", updateData);
 		fetch(`/${urlInsert}/${id}`, {
@@ -56,19 +37,14 @@ class Main extends React.Component {
 	  	}).then(updatedItem => {
 			return updatedItem.json()
 		}).then( jsonedItem => {
-			console.log("jsonedItem", jsonedItem);
-			const filteredItemArr = this.props.listItemsArray.filter( item => item.id !== id)
-			filteredItemArr.unshift(jsonedItem)
-			this.props.updateListItemsArr(filteredItemArr, listType)
-			this.setState({
-				mainView: 'list'
-			})
-	      })
-	      .catch(err => console.log(err))
+			console.log("Updated jsonedItem", jsonedItem);
+			this.props.updateListItemsArr(jsonedItem, listType, 'PUT')
+	      }).catch(err => console.log(err))
 	}
 
 	handleDelete = (id, listType) => {
-		fetch(`/${listType}/${id}`, {
+		const urlInsert = listType.toLowerCase()
+		fetch(`/${urlInsert}/${id}`, {
 	      method: 'DELETE',
 	      headers: {
 	        'Accept': 'application/json, text/plain, */*',
@@ -76,8 +52,7 @@ class Main extends React.Component {
 	      }
 	    })
 	      .then(data => {
-				const items = this.props.listItemsArray.filter( item => item.id !== id)
-				this.props.updateListItemsArr(items)
+				this.props.updateListItemsArr(id, listType, 'DELETE')
         })
 	      .catch(err => console.log(err))
 	  }
@@ -86,28 +61,26 @@ class Main extends React.Component {
 		if (this.props.listToShow === 'Todos') {
 			return (
 				<Todos
-					mainView={this.state.mainView}
+					mainView={this.props.mainView}
 					handleCreate={this.handleCreate}
 					listItemsArray={this.props.listItemsArray}
-					handleMainView={this.handleMainView}
+					handleView={this.props.handleView}
 					handleDelete={this.handleDelete}
 					handleUpdate={this.handleUpdate}
-					/>
+					listToShow={this.props.listToShow}
+				/>
 			)
 		} else if (this.props.listToShow === 'Movies') {
 			return (
 				<Movies
-					mainView={this.state.mainView}
+					mainView={this.props.mainView}
 					handleCreate={this.handleCreate}
 					listItemsArray={this.props.listItemsArray}
-					handleMainView={this.handleMainView}
+					handleView={this.props.handleView}
 					handleDelete={this.handleDelete}
 					handleUpdate={this.handleUpdate}
+					listToShow={this.props.listToShow}
 				/>
-			)
-		}else if (this.props.listToShow === 'Loadscreen') {
-			return (
-				<Loadscreen />
 			)
 		}
 	}
