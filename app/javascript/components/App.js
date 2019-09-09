@@ -72,6 +72,13 @@ class App extends React.Component {
 			this.handleView(view)
 	}
 
+	updateListItemsArr = (newItemArr) => {
+		console.log(newItemArr);
+		this.setState({
+			listItemsArray: newItemArr
+		})
+	}
+
 	render () {
 		return (
       		<div className="container">
@@ -86,7 +93,8 @@ class App extends React.Component {
 					:<Main
 						listItemsArray={this.state.listItemsArray}
 						listToShow={this.state.view.listToShow}
-						fetchItems={this.state.fetchItems}
+						fetchItems={this.fetchItems}
+						updateListItemsArr={this.updateListItemsArr}
 					/>
 					}
 				</div>
