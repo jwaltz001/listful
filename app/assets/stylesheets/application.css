@@ -27,10 +27,6 @@
 ul {
 	list-style: none;
 }
-img {
-	width: 150px;
-	height: auto;
-}
 
 /* Header/Nav */
 header {
@@ -51,6 +47,7 @@ header {
 }
 .movie-container {
 	display: flex;
+	flex-flow: wrap;
 }
 .list-add-btn {
 	background: var(--orange);
@@ -88,4 +85,9 @@ form {
 	flex-flow: column;
 	justify-content: center;
 	align-items: center;
+}
+
+/* Movie List */
+.movie-div > img,h3,h4,p {
+	width: 200px;
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import Search from './Search.js'
 
 class Movies extends React.Component {
 	constructor(props) {
@@ -9,7 +10,7 @@ class Movies extends React.Component {
 			genre: '',
 			description: '',
 			watched: false,
-			imageurl: ''
+			imageurl: '',
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -34,7 +35,17 @@ class Movies extends React.Component {
 				imageurl:itemData.imageurl
 			})
 		}
-		this.props.handleMainView(viewType)
+		this.props.handleView('Movies',viewType)
+	}
+
+	insertSelectedMovie = (selectedMovie) => {
+		this.setState({
+			title: selectedMovie.Title,
+			genre: selectedMovie.Type,
+			description: '',
+			watched: false,
+			imageurl: selectedMovie.Poster,
+		})
 	}
 
 	handleChange = (event) => {
@@ -52,10 +63,11 @@ class Movies extends React.Component {
 			watched: this.state.watched,
 			imageurl: this.state.imageurl
 		}
+		console.log("movies.js handleSubmit() formdata ", formData);
 		if(this.props.mainView === 'addForm') {
       		this.props.handleCreate(formData, 'Movies')
     	}else if (this.props.mainView === 'editForm') {
-    		this.props.handleUpdate(formData, 'Movies', this.state.id)
+    		this.props.handleUpdate(formData, 'Movies', this.state.id, "PUT")
     	}
 	}
 
@@ -68,6 +80,16 @@ class Movies extends React.Component {
 			imageurl: this.state.imageurl
 	    })
     }
+	//
+	// componentWillUnmount() {
+	//     this.setState({
+	// 	    title: this.state.title,
+	// 	    genre: this.state.genre,
+	// 	    description: this.state.description,
+	// 		watched: this.state.watched,
+	// 		imageurl: this.state.imageurl
+	//     })
+    // }
 
 	render () {
 		if (this.props.mainView != 'list') {
@@ -76,6 +98,11 @@ class Movies extends React.Component {
 					<h2>
 						<i onClick={()=>{this.handleMovieFormView('list')}} className="material-icons md-36">close</i>
 					</h2>
+					<Search
+						insertSelectedItemFromSearch={this.insertSelectedMovie}
+						mainView={this.props.mainView}
+						listToShow={this.props.listToShow}
+					/>
 					<form onSubmit={this.handleSubmit}>
 						<label htmlFor="title">Title</label>
 							<input type="text" id="title"
@@ -87,7 +114,7 @@ class Movies extends React.Component {
 								value={this.state.genre}
 								onChange={this.handleChange}/>
 
-						<label htmlFor="description">Description</label>
+						<label htmlFor="description">Comments</label>
 							<input type="text" id="description"
 								value={this.state.description}
 								onChange={this.handleChange}/>
@@ -97,7 +124,7 @@ class Movies extends React.Component {
 								value={this.state.imageurl}
 								onChange={this.handleChange}/>
 
-						<label htmlFor="watched">imageurl</label>
+						<label htmlFor="watched">Watched</label>
 							<input
 	            				id="watched"
 	            				type="checkbox"
@@ -132,7 +159,7 @@ class Movies extends React.Component {
 								)}
 								</p>
 								<i className="material-icons md-24" onClick={()=>{this.handleMovieFormView('editForm', itemData)}}>edit</i>
-								<i onClick={()=>{this.props.handleDelete(itemData.id, 'todos')}} className="material-icons md-24">delete_forever</i>
+								<i onClick={()=>{this.props.handleDelete(itemData.id, 'Movies')}} className="material-icons md-24">delete_forever</i>
 							</div>
 						))
 					}

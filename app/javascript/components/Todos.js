@@ -6,7 +6,8 @@ class Todos extends React.Component {
 		this.state = {
 			id: null,
 			description: '',
-			isComplete: false
+			isComplete: false,
+			listItemsArray: this.props.listItemsArray
 		}
 		this.handleChange = this.handleChange.bind(this)
 	}
@@ -23,7 +24,7 @@ class Todos extends React.Component {
 				description: itemData.description
 			})
 		}
-		this.props.handleMainView(viewType)
+		this.props.handleView('Todos' , viewType)
 	}
 
 	handleChange = (event) => {
@@ -42,12 +43,34 @@ class Todos extends React.Component {
 		if(this.props.mainView === 'addForm') {
 			this.props.handleCreate(formData, 'Todos')
     	}else if (this.props.mainView === 'editForm') {
-			this.props.handleUpdate(formData, 'Todos', this.state.id)
+			this.props.handleUpdate(formData, 'Todos', this.state.id, 'PUT')
     	}
 	}
-
+	
 	render () {
-		if (this.props.mainView != 'list') {
+		if (this.props.mainView === 'list') {
+			return (
+				<main>
+					<button onClick={()=>{this.handleTodoFormView('addForm')}} className="list-add-btn">
+						<i className="material-icons md-36">add</i>
+					</button>
+					{
+						this.props.listItemsArray.map((itemData) => (
+							<div className="todo-div" key={itemData.id}>
+								<form onSubmit={this.handleSubmit}>
+									<button type="submit">Mark as Done</button>
+									<input id="decription" type="hidden" value={itemData.description}/>
+									<h2>{itemData.description}
+										<i className="material-icons md-24" onClick={()=>{this.handleTodoFormView('editForm', itemData)}}>edit</i>
+										<i onClick={()=>{this.props.handleDelete(itemData.id, 'Todos')}} className="material-icons md-24">delete_forever</i>
+										</h2>
+								</form>
+							</div>
+						))
+					}
+				</main>
+			)
+		} else {
 			return (
 				<main>
 					<h2>
@@ -64,48 +87,9 @@ class Todos extends React.Component {
 					</form>
 				</main>
 			)
-		} else {
-			return (
-				<main>
-					<button onClick={()=>{this.handleTodoFormView('addForm')}} className="list-add-btn">
-						<i className="material-icons md-36">add</i>
-					</button>
-					{
-						this.props.listItemsArray.map((itemData) => (
-							<div className="todo-div" key={itemData.id}>
-								<form onSubmit={this.handleSubmit}>
-									<button type="submit">Mark as Done</button>
-									<input id="decription" type="hidden" value={itemData.description}/>
-									<h2>{itemData.description}
-										<i className="material-icons md-24" onClick={()=>{this.handleTodoFormView('editForm', itemData)}}>edit</i>
-										<i onClick={()=>{this.props.handleDelete(itemData.id, 'todos')}} className="material-icons md-24">delete_forever</i>
-										</h2>
-								</form>
-							</div>
-						))
-					}
-				</main>
-			)
 		}
 	}
 }
 
 
 export default Todos
-
-// {itemData.iscomplete ? (
-// 	<input
-// 		id="isComplete"
-// 		type="checkbox"
-// 		defaultChecked
-// 		checked={this.state.isComplete}
-// 		onChange={this.handleChange}
-// 	/>
-// ) : (
-// 	<input
-// 		id="isComplete"
-// 		type="checkbox"
-// 		checked={this.state.isComplete}
-// 		onChange={this.handleChange}
-// 	/>
-// )}
