@@ -1,7 +1,7 @@
 import React from 'react'
 import Todos from './Todos.js'
 import Movies from './Movies.js'
-
+import Loadscreen from './Loadscreen.js'
 
 class Main extends React.Component {
 	constructor(props) {
@@ -18,6 +18,9 @@ class Main extends React.Component {
 	}
 
 	handleCreate = (createData, listType) => {
+		this.setState({
+			mainView: 'list'
+		})
 		const updateListItemsArr = () => {
 			this.props.updateListItemsArr
 		}
@@ -33,7 +36,7 @@ class Main extends React.Component {
 			return createdItem.json()
 	    }).then(jsonedItem => {
 			const newItemArr = this.props.listItemsArray.push(jsonedItem)
-			updateListItemsArr(newItemArr)
+			updateListItemsArr(newItemArr, listType)
 			this.setState({
 				mainView: 'list'
 			})
@@ -42,6 +45,7 @@ class Main extends React.Component {
 
 	handleUpdate = (updateData, listType, id) => {
 		const urlInsert = listType.toLowerCase()
+		console.log("update data", updateData);
 		fetch(`/${urlInsert}/${id}`, {
 	      body: JSON.stringify(updateData),
 	      method: 'PUT',
@@ -54,8 +58,8 @@ class Main extends React.Component {
 		}).then( jsonedItem => {
 			console.log("jsonedItem", jsonedItem);
 			const filteredItemArr = this.props.listItemsArray.filter( item => item.id !== id)
-			filteredItemArr.push(jsonedItem)
-			this.props.updateListItemsArr(filteredItemArr)
+			filteredItemArr.unshift(jsonedItem)
+			this.props.updateListItemsArr(filteredItemArr, listType)
 			this.setState({
 				mainView: 'list'
 			})
@@ -101,6 +105,8 @@ class Main extends React.Component {
 					handleUpdate={this.handleUpdate}
 				/>
 			)
+		}else if (this.props.listToShow === 'Loadscreen') {
+			return (<Loadscreen />)
 		}
 	}
 }

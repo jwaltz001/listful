@@ -25,10 +25,7 @@ class App extends React.Component {
 			listItemsArray: [],
 			showSideBar: false,
 			loggedInUser: "User",
-			view: {
-				listToShow: 'Home',
-				page: 'list'
-			}
+			listToShow: 'Home'
 		}
 		this.handleToggleClick = this.handleToggleClick.bind(this);
 	}
@@ -46,6 +43,9 @@ class App extends React.Component {
 				listToShow = 'Home';
 				// pageTitle = `Hi ${user}, Welcome back`;
 				break;
+			case 'Loadscreen':
+				listToShow = 'Loadscreen';
+				break;
 			case 'Todos':
 				listToShow = 'Todos';
 				break;
@@ -56,9 +56,7 @@ class App extends React.Component {
 				break;
 		}
 		this.setState({
-			view: {
-				listToShow: listToShow
-			}
+			listToShow: listToShow
 		})
 	}
 
@@ -72,11 +70,13 @@ class App extends React.Component {
 			this.handleView(view)
 	}
 
-	updateListItemsArr = (newItemArr) => {
+	updateListItemsArr = (newItemArr, list) => {
+		this.handleView('Loadscreen')
 		console.log(newItemArr);
 		this.setState({
-			listItemsArray: newItemArr
+			listItemsArray: newItemArr,
 		})
+		this.handleView(list)
 	}
 
 	render () {
@@ -88,11 +88,11 @@ class App extends React.Component {
 						show={this.state.showSideBar}
 						fetchItems={this.fetchItems}
 					/>
-					{ this.state.view.listToShow === 'Home'
+					{ this.state.listToShow === 'Home'
 					? <Home />
 					:<Main
 						listItemsArray={this.state.listItemsArray}
-						listToShow={this.state.view.listToShow}
+						listToShow={this.state.listToShow}
 						fetchItems={this.fetchItems}
 						updateListItemsArr={this.updateListItemsArr}
 					/>

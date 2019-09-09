@@ -97,7 +97,7 @@ class Movies extends React.Component {
 								value={this.state.imageurl}
 								onChange={this.handleChange}/>
 
-						<label htmlFor="watched">imageurl</label>
+						<label htmlFor="watched">Watched</label>
 							<input
 	            				id="watched"
 	            				type="checkbox"
