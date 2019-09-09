@@ -18,10 +18,4 @@ Rails.application.routes.draw do
   	delete '/movies/:id', to: 'movies#delete'
     put '/movies/:id', to: 'movies#update'
 
-
-  	# get '/music', to: 'music#index'
-  	# get '/music/:id', to: 'music#show'
-  	# post '/music/id', to: 'music#create'
-  	# delete '/music/:id', to: 'music#delete'
-
 end
