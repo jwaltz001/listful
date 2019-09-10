@@ -80,16 +80,6 @@ class Movies extends React.Component {
 			imageurl: this.state.imageurl
 	    })
     }
-	//
-	// componentWillUnmount() {
-	//     this.setState({
-	// 	    title: this.state.title,
-	// 	    genre: this.state.genre,
-	// 	    description: this.state.description,
-	// 		watched: this.state.watched,
-	// 		imageurl: this.state.imageurl
-	//     })
-    // }
 
 	render () {
 		if (this.props.mainView != 'list') {
@@ -148,18 +138,21 @@ class Movies extends React.Component {
 						this.props.listItemsArray.map((itemData) => (
 							<div className="movie-div" key={itemData.id}>
 								<img src={itemData.imageurl}/>
-								<h3>{itemData.title}</h3>
-								<h4>{itemData.genre}</h4>
-								<p>{itemData.description}</p>
-								<p>Watched:
-								{itemData.watched ? (
-									<input type="checkbox" defaultChecked />
-								) : (
-									<input type="checkbox"/>
-								)}
-								</p>
-								<i className="material-icons md-24" onClick={()=>{this.handleMovieFormView('editForm', itemData)}}>edit</i>
-								<i onClick={()=>{this.props.handleDelete(itemData.id, 'Movies')}} className="material-icons md-24">delete_forever</i>
+								<div className="movie-info">
+									<h3>{itemData.title}</h3>
+									<h4>{itemData.genre}</h4>
+									<p>Watched:
+									{itemData.watched ? (
+										<input type="checkbox" defaultChecked />
+									) : (
+										<input type="checkbox"/>
+									)}
+									</p>
+									<p className="edit-delete-item-btn">
+										<i className="material-icons md-24" onClick={()=>{this.handleMovieFormView('editForm', itemData)}}>edit</i>
+										<i onClick={()=>{this.props.handleDelete(itemData.id, 'Movies')}} className="material-icons md-24">delete_forever</i>
+									</p>
+								</div>
 							</div>
 						))
 					}
