@@ -58,9 +58,8 @@ class Todos extends React.Component {
 						this.props.listItemsArray.map((itemData) => (
 							<div className="todo-div" key={itemData.id}>
 								<form onSubmit={this.handleSubmit}>
-
 									<input id="decription" type="hidden" value={itemData.description}/>
-									<div>
+									<div className="todo-item">
 									<i class="material-icons">check_box_outline_blank</i>
 									<h2>{itemData.description}</h2>
 									<i className="material-icons md-24" onClick={()=>{this.handleTodoFormView('editForm', itemData)}}>edit</i>

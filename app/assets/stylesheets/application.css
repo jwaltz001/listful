@@ -126,7 +126,6 @@ nav {
 .list-add-btn:hover {
 	background: transparent;
 }
-
  /* Main Display */
 main {
 	width: 100%;
@@ -139,8 +138,20 @@ main > h2{
 main > div {
 	margin: 1em;
 }
+.search-results-div {
+	display: flex;
+	flex-flow: wrap;
+}
+.search-result {
+	background: var(--orange);
+	margin: 3px;
+}
+.search-result > h4, p {
+	width: 300px;
+	margin: 0;
+}
 .todo-div * {
-	margin: 5px .75em
+	margin: 5px .75em;
 }
 .todo-div > div {
 	text-align: center;
@@ -148,6 +159,11 @@ main > div {
 	justify-content: center;
 	align-items: center;
 }
+
+.todo-item {
+	display: flex;
+}
+
 form {
 	padding:1em;
 	display: flex;
