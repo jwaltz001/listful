@@ -5,10 +5,10 @@ class SearchResults extends React.Component {
   render () {
 	  if (this.props.listToShow === "Movies") {
 		  return  (
-			  <div>
+			  <div className="search-results-div">
 			  {
 				  this.props.results.map((movie) => (
-					  <div key={movie.imdbID} onClick={()=>{this.props.insertSelectedItemFromSearch(movie)}}>
+					  <div className="search-result" key={movie.imdbID} onClick={()=>{this.props.insertSelectedItemFromSearch(movie)}}>
 						  <h4>{movie.Title}</h4>
 						  <p>Year: {movie.Year}</p>
 					  </div>
