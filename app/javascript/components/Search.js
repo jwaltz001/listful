@@ -4,10 +4,6 @@ class Search extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			baseURL: 'http://www.omdbapi.com/?',
-			apikey: 'apikey=' + 'c1904f71',
-			query: '&s=',
-			numOfResults: '&page=1',
     		searchText: '',
     		searchURL: ''
 		}
@@ -20,18 +16,20 @@ class Search extends React.Component {
 
 	handleSubmit (event) {
   		event.preventDefault()
-		this.setState({
-			searchURL: this.state.baseURL + this.state.apikey + this.state.query +  this.state.searchText + this.state.numOfResults
-  		}, () => {
-  			fetch(this.state.searchURL)
-			.then((response) => {
-				return response.json()
-			}).then((json) => this.setState({
-				results: json.Search,
-				searchText: ''
-			}),
-  				err => console.log(err))
-  		})
+		if (this.props.listToShow === "Movies") {
+			this.setState({
+				searchURL: 'https://www.omdbapi.com/?apikey=c1904f71&s=' +  this.state.searchText + '&page=1'
+	  		}, () => {
+	  			fetch(this.state.searchURL)
+				.then((response) => {
+					return response.json()
+				}).then((json) => this.setState({
+					results: json.Search,
+					searchText: ''
+				}),
+	  				err => console.log(err))
+	  		})
+		}
 	}
 
 	render() {
@@ -55,6 +53,7 @@ class Search extends React.Component {
 						<SearchResults
 							results={this.state.results}
 							insertSelectedItemFromSearch={this.props.insertSelectedItemFromSearch}
+							listToShow={this.props.listToShow}
 						/> : ''
 				}
 			</div>
