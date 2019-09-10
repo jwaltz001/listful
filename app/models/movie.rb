@@ -54,7 +54,7 @@ class Movie
 						listName='#{opts["listName"]}',
 						imageurl='#{opts["imageurl"]}'
             WHERE id=#{id}
-            RETURNING id, title, genre, description, watched, listName, imageURL;
+            RETURNING id, title, genre, description, watched, listName, imageurl;
         SQL
     )
     return {
@@ -64,7 +64,7 @@ class Movie
 				"description" => results.first["description"],
 				"watched" => results.first["watched"],
 				"listName" => results.first["listName"],
-				"imageurl" => results.first["imageURL"]
+				"imageurl" => results.first["imageurl"]
     }
 		end
 

@@ -82,11 +82,10 @@ class App extends React.Component {
 				return { listItemsArray: filteredArr }
 			})
 		}else if (method === "PUT") {
-			this.setState(prevState => {
-				const filteredItemArr = prevState.listItemsArray.filter( arrItem => arrItem.id !== item.id)
-				console.log()
-				filteredItemArr.unshift(item)
-				return {listItemsArray: filteredItemArr}
+			const filteredItemArr = this.state.listItemsArray.filter( arrItem => arrItem.id != item.id)
+			filteredItemArr.unshift(item)
+			this.setState({
+				listItemsArray: filteredItemArr
 			})
 		}
 		this.handleView(listType, 'list')
