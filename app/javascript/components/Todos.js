@@ -46,7 +46,7 @@ class Todos extends React.Component {
 			this.props.handleUpdate(formData, 'Todos', this.state.id, 'PUT')
     	}
 	}
-	
+
 	render () {
 		if (this.props.mainView === 'list') {
 			return (
@@ -58,9 +58,9 @@ class Todos extends React.Component {
 						this.props.listItemsArray.map((itemData) => (
 							<div className="todo-div" key={itemData.id}>
 								<form onSubmit={this.handleSubmit}>
-									<button type="submit">Mark as Done</button>
+
 									<input id="decription" type="hidden" value={itemData.description}/>
-									<h2>{itemData.description}
+									<h2><i class="material-icons">check_box_outline_blank</i> {itemData.description}
 										<i className="material-icons md-24" onClick={()=>{this.handleTodoFormView('editForm', itemData)}}>edit</i>
 										<i onClick={()=>{this.props.handleDelete(itemData.id, 'Todos')}} className="material-icons md-24">delete_forever</i>
 										</h2>

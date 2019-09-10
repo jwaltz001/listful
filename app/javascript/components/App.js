@@ -42,7 +42,6 @@ class App extends React.Component {
 		switch (listType) {
 			case 'Home':
 				listToShow = 'Home';
-				// pageTitle = `Hi ${user}, Welcome back`;
 				break;
 			case 'Todos':
 				listToShow = 'Todos';
