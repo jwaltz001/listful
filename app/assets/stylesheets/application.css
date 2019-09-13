@@ -35,11 +35,9 @@ body{
 	padding: 0;
 	margin: 0;
 }
-
 *{
 	font-family: var(--body-font)
 }
-
 #root, .container, header, .main-container{
 	width: 100%;
 }
@@ -72,26 +70,29 @@ nav {
 .site_title {
 	margin-right: 3em;
 }
-
 #site_subtitle{
 	font-family: var(--body-font);
 }
-
 .site_title > h1 {
 	font-family: var(--body-font);
 	font-size: 3em;
 }
 
+/* Welcome Message */
 .scrolling-message {
 	text-align: right;
-	width: 65%;
+	width: 70%;
 }
+
 /* SideBar */
 .sidebar {
 	width: 20em;
 	height: auto;
 	border-right: 2pt solid black;
 	background: var(--orange);
+}
+.sidebar-title {
+	font-family: var(--header-font);
 }
 .sidebar li {
 	width:100%;
@@ -103,6 +104,7 @@ nav {
 .sidebar li:hover {
 	border-bottom: 3pt solid white;
 }
+
 /* Main Sections */
 .main-container {
 	display: flex;
@@ -110,12 +112,6 @@ nav {
 	background: var(--grey);
 	color: white;
 	min-height: 750px;
-}
-
-.movie-container {
-	display: flex;
-	flex-flow: wrap;
-	justify-content: center;
 }
 .list-add-btn {
 	background: white;
@@ -126,7 +122,8 @@ nav {
 .list-add-btn:hover {
 	background: transparent;
 }
- /* Main Display */
+
+/* Main Display */
 main {
 	width: 100%;
 	height: 100%;
@@ -138,6 +135,69 @@ main > h2{
 main > div {
 	margin: 1em;
 }
+form {
+	padding:1em;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+}
+.temp-screen {
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+}
+.temp-screen > * {
+	text-align: center;
+}
+
+/* Todo List */
+.todo-div * {
+	margin: 5px .75em;
+}
+.todo-div > div {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.todo-item-display {
+	display: flex;
+}
+
+/* Movie List */
+.movie-container {
+	display: flex;
+	flex-flow: wrap;
+	justify-content: center;
+}
+.movie-div {
+	margin: 10px 5px -110px 5px;
+}
+.movie-div > img{
+	height: 400px;
+}
+.movie-info > * {
+	text-align: center;
+	width: 100%;
+}
+.movie-info {
+	width:270px;
+	position: relative;
+	z-index: 1;
+	top: -250px;
+	background: var(--orange);
+}
+.movie-info:hover {
+	background: rgba(244, 130, 11, .3);
+}
+.edit-delete-item-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Seach Components */
 .search-results-div {
 	display: flex;
 	flex-flow: wrap;
@@ -149,56 +209,4 @@ main > div {
 .search-result > h4, p {
 	width: 300px;
 	margin: 0;
-}
-.todo-div * {
-	margin: 5px .75em;
-}
-.todo-div > div {
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.todo-item {
-	display: flex;
-}
-
-form {
-	padding:1em;
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: center;
-}
-
-/* Movie List */
-.movie-div {
-	margin: 10px 5px -110px 5px;
-}
-
-.movie-div > img{
-	height: 400px;
-}
-.movie-info > * {
-	text-align: center;
-	width: 100%;
-}
-
-.movie-info {
-	width:270px;
-	position: relative;
-	z-index: 1;
-	top: -250px;
-	background: var(--orange);
-}
-
-.movie-info:hover {
-	background: rgba(244, 130, 11, .3);
-}
-
-.edit-delete-item-btn {
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }

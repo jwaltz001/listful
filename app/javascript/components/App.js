@@ -38,22 +38,8 @@ class App extends React.Component {
   	}
 
 	handleView = (listType, view, data) => {
-		let listToShow = '';
-		switch (listType) {
-			case 'Home':
-				listToShow = 'Home';
-				break;
-			case 'Todos':
-				listToShow = 'Todos';
-				break;
-			case 'Movies':
-				listToShow = 'Movies';
-				break;
-			default:
-				break;
-		}
 		this.setState({
-			listToShow: listToShow,
+			listToShow: listType,
 			mainView: view
 		})
 	}
@@ -63,13 +49,21 @@ class App extends React.Component {
 			fetch(`/${urlInsert}`)
 			.then(data => data.json())
 			.then(jData => {
+				for (var i = 0; i < jData.length; i++) {
+					if (jData[i].iscomplete === "t") {
+						jData[i].iscomplete = true;
+					} else {
+						jData[i].iscomplete = false;
+					}
+				}
+				console.log(jData);
 				this.setState({ listItemsArray: jData })
 			})
 			this.handleView(listType, 'list')
 	}
 
 	updateListItemsArr = (item, listType, method) => {
-		console.log("App.js updateListItems params",item, listType, method);
+		console.log("5 App.js updateListItems params",item, listType, method);
 		if (method === 'POST') {
 			this.setState(prevState => {
 				prevState.listItemsArray.unshift(item)
