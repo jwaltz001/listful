@@ -15,7 +15,7 @@ class Header extends React.Component {
 					</div>
 					<div className= "site_title">
 						<h1>listful.</h1>
-						<span id="site_subtitle">All your lists. All the Time</span>
+						<span id="site_subtitle">All your lists. All the Time.</span>
 					</div>
 				</nav>
 			</header>

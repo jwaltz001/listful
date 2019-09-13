@@ -1,7 +1,7 @@
 import React from 'react'
 import Todos from './Todos.js'
 import Movies from './Movies.js'
-
+import Loadscreen from './Loadscreen.js'
 class Main extends React.Component {
 	handleCreate = (createData, listType) => {
 		console.log("main.js handleCreate createData", createData);
@@ -17,16 +17,18 @@ class Main extends React.Component {
 			return createdItem.json()
 	    }).then(jsonedItem => {
 			console.log("main.js handleCreate jsoned item",jsonedItem);
+			if (jsonedItem.iscomplete === "t") {
+				jsonedItem.iscomplete = true;
+			} else {
+				jsonedItem.iscomplete = false;
+			}
 			this.props.updateListItemsArr(jsonedItem, listType, 'POST')
-			// this.setState({
-			// 	mainView: 'list'
-			// })
 	    }).catch(err => console.log(err))
 	}
 
 	handleUpdate = (updateData, listType, id, method) => {
 		const urlInsert = listType.toLowerCase()
-		console.log("update data", updateData);
+		//console.log("3 update data", updateData);
 		fetch(`/${urlInsert}/${id}`, {
 	      body: JSON.stringify(updateData),
 	      method: 'PUT',
@@ -37,7 +39,12 @@ class Main extends React.Component {
 	  	}).then(updatedItem => {
 			return updatedItem.json()
 		}).then( jsonedItem => {
-			console.log("Updated jsonedItem", jsonedItem);
+			//console.log("4 Updated jsonedItem", jsonedItem);
+			if (jsonedItem.iscomplete === "t") {
+				jsonedItem.iscomplete = true;
+			} else {
+				jsonedItem.iscomplete = false;
+			}
 			this.props.updateListItemsArr(jsonedItem, listType, 'PUT')
 	      }).catch(err => console.log(err))
 	}
@@ -81,6 +88,10 @@ class Main extends React.Component {
 					handleUpdate={this.handleUpdate}
 					listToShow={this.props.listToShow}
 				/>
+			)
+		} else if (this.props.listToShow === 'TempScreen') {
+			return (
+				<Loadscreen />
 			)
 		}
 	}
