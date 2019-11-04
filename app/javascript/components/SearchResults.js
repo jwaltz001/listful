@@ -1,14 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 
-class SearchResults extends React.Component {
-  render () {
-	  if (this.props.listToShow === "Movies") {
+export default function SearchResults (props) {
+	  if (props.listToShow === "Movies") {
 		  return  (
 			  <div className="search-results-div">
 			  {
-				  this.props.results.map((movie) => (
-					  <div className="search-result" key={movie.imdbID} onClick={()=>{this.props.insertSelectedItemFromSearch(movie)}}>
+				  props.results.map((movie) => (
+					  <div className="search-result" key={movie.imdbID} onClick={()=>{props.insertSelectedItemFromSearch(movie)}}>
 						  <h4>{movie.Title}</h4>
 						  <p>Year: {movie.Year}</p>
 					  </div>
@@ -17,7 +16,4 @@ class SearchResults extends React.Component {
 			  </div>
 			)
 	  }
-  }
 }
-
-export default SearchResults

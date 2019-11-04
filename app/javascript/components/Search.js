@@ -1,5 +1,54 @@
-import React from 'react'
-import SearchResults from './SearchResults.js'
+import React from 'react';
+import SearchResults from './SearchResults.js';
+
+// export default function Search (props) {
+// 	const [searchText, setSearchText] = useState('');
+// 	const [searchURL, setSearchURL] = useState('');
+// 	const [searchResults, setSearchResults] = useState(null);
+//
+// 	function handleSubmit (event) {
+// 		event.preventDefault();
+// 		if (props.listToShow === 'Movies') {
+// 			setSearchURL(`https://www.omdbapi.com/?apikey=c1904f71&s=${searchText}&page1`);
+// 			.then(() => {
+// 				fetch(searchURL)
+// 				.then((response) => {
+// 					return response.json();
+// 				}).then((json) => {
+// 					setSearchText('');
+// 					setSearchResults(json);
+// 				}), error => console.log(error)
+// 			})
+// 		}
+// 	}
+//
+// 	return(
+// 		<div>
+// 			<form onSubmit={handleSubmit}>
+// 				<label htmlFor='searchText'>Title</label>
+// 					<input
+// 					id='searchText'
+// 					type='text'
+// 					value={searchText}
+// 					onChange={event => setSearchText(event.target.value)}
+// 					/>
+// 					<input
+// 					type='submit'
+// 					value='Find Movie Info'
+// 					/>
+// 			</form>
+// 			{
+// 				searchResults ?
+// 					<SearchResults
+// 						results={searchResults}
+// 						insertSelectedItemFromSearch={props.insertSelectedItemFromSearch}
+// 						listToShow={props.listToShow}
+// 					/> : ''
+// 			}
+// 		</div>
+// 	)
+// }
+
 class Search extends React.Component {
 	constructor(props) {
 		super(props)

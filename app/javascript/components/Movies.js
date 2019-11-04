@@ -1,5 +1,5 @@
-import React from 'react'
-import Search from './Search.js'
+import React, {useState} from 'react';
+import Search from './Search.js';
 
 class Movies extends React.Component {
 	constructor(props) {
